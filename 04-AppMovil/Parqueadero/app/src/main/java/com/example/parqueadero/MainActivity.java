@@ -59,7 +59,22 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject datos = new JSONObject(response);
-                    System.out.println("datos: "+datos);
+                    System.out.println(datos);
+                    if(datos.getBoolean("success")){
+                        System.out.println("entro");
+                        JSONObject usuario = datos.getJSONObject("user");
+                        String status = usuario.getString("estado");
+                        String rol = usuario.getString("tipo");
+                        System.out.println(status);
+                        if (status.equalsIgnoreCase("INACTIVO")){
+                            System.out.println("Usuario Inactivo");
+                            Toast.makeText( getApplicationContext(), "Usuario INACTIVO", Toast.LENGTH_LONG ).show();
+                        } else if (rol.equalsIgnoreCase("VENDEDOR")) {
+                            String id_usuario  = usuario.getString("id");
+                            obtenerParking(id_usuario);
+                        }
+
+                    }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -82,6 +97,42 @@ public class MainActivity extends AppCompatActivity {
         queue.add(solicitud);
     }
 
+    public void obtenerParking(String id_usuario){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-Ticket/obtenerParqueadero.php");
+        StringRequest consulta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject resultado = new JSONObject(response);
+                    JSONArray parqueadero = resultado.getJSONArray("parqueaderos");
+                    //JSONObject parq = parqueadero.getJSONObject("");
+                    //System.out.println("resultado: "+parq);
+                    //String nombre = parq.getString("nombre");
+                    //String nit = parq.getString(Integer.parseInt("nit"));
+                    //String direccion = parq.getString(Integer.parseInt("direccion"));
+                    //String telefono= parq.getString(Integer.parseInt("telefono"));
+                    //String user = parq.getString(Integer.parseInt("num_vendedores"));
+                    System.out.println(parqueadero);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Joa mani el servidor POST responde con un error:");
+                System.out.println(error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_usuario", id_usuario);
+                return params;
+            }
+        };
+        queue.add(consulta);
+    }
     public void cambiarActivity(String id_usuario, String nombres){
         SharedPreferences archivo = getSharedPreferences("Parqueadero", Context.MODE_PRIVATE);
 

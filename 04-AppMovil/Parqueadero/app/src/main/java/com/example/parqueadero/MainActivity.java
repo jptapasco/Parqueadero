@@ -18,6 +18,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.parqueadero.administrador.MainActivityAdmin;
 import org.json.JSONArray;
+
+import com.example.parqueadero.administrador.Vendedores;
 import com.example.parqueadero.utils.Config;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                         } else if (rol.equalsIgnoreCase("VENDEDOR")) {
                             String id_usuario  = usuario.getString("id");
                             obtenerParking(id_usuario);
+                            obtenerAsignacion(id_usuario);
+                        } else if (rol.equalsIgnoreCase("ADMIN")){
+                            cambiarActivity(rol);
                         }
 
                     }
@@ -106,14 +111,16 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject resultado = new JSONObject(response);
                     JSONArray parqueadero = resultado.getJSONArray("parqueaderos");
-                    //JSONObject parq = parqueadero.getJSONObject("");
-                    //System.out.println("resultado: "+parq);
-                    //String nombre = parq.getString("nombre");
-                    //String nit = parq.getString(Integer.parseInt("nit"));
-                    //String direccion = parq.getString(Integer.parseInt("direccion"));
-                    //String telefono= parq.getString(Integer.parseInt("telefono"));
-                    //String user = parq.getString(Integer.parseInt("num_vendedores"));
-                    System.out.println(parqueadero);
+                    for (int i = 0; i < parqueadero.length(); i++) {
+                        JSONObject parqueaderoObj = parqueadero.getJSONObject(i);
+
+                        String nit = parqueaderoObj.getString("nit");
+                        String nombre = parqueaderoObj.getString("nombre");
+                        String direccion = parqueaderoObj.getString("direccion");
+                        String telefono = parqueaderoObj.getString("telefono");
+                        String numVendedores = parqueaderoObj.getString("num_vendedores");
+
+                    }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -133,17 +140,46 @@ public class MainActivity extends AppCompatActivity {
         };
         queue.add(consulta);
     }
-    public void cambiarActivity(String id_usuario, String nombres){
-        SharedPreferences archivo = getSharedPreferences("Parqueadero", Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = archivo.edit();
-        editor.putString("id_usuario", id_usuario);
-        editor.putString("nombres", nombres);
-        editor.apply();
-
-        Intent intencion = new Intent(getApplicationContext(), MainActivityAdmin.class);
-        startActivity(intencion);
-        finish();
+    public void obtenerAsignacion(String id_usuario){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-parqueadero/obtenerIdAsignacion.php");
+        StringRequest consulta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject respuesta = new JSONObject(response);
+                    String id_asignacion = respuesta.getString("id_asignacion");
+                    System.out.println("ID Asignacion: "+id_asignacion);
+                } catch (JSONException e) {
+                    System.out.println("todo mal");
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Joa mani el servidor POST responde con un error:");
+                System.out.println(error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_usuario", id_usuario);
+                return params;
+            }
+        };
+        queue.add(consulta);
+    }
+    public void cambiarActivity(String rol){
+        if (rol.equalsIgnoreCase("ADMIN")){
+            System.out.println("INICIO SESION COMO ADMIN");
+            Intent intencion = new Intent(getApplicationContext(), Vendedores.class);
+            startActivity(intencion);
+            finish();
+        }else{
+            System.out.println("INICIO SESION COMO VENDEDOR");
+        }
     }
 
     public void validarSesion(){

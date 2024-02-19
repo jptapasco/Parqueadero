@@ -1,4 +1,4 @@
-package com.example.parqueadero.vendedor;
+package com.example.parqueadero.administrador;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,14 +10,13 @@ import android.view.MenuItem;
 
 import com.example.parqueadero.MainActivity;
 import com.example.parqueadero.R;
-import com.example.parqueadero.administrador.MainActivityAdmin;
+import com.example.parqueadero.vendedor.MainActivityVendedor;
 
-public class MainActivityVendedor extends AppCompatActivity {
+public class Vendedores extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_vendedor);
+        setContentView(R.layout.activity_vendedores);
     }
-
 }

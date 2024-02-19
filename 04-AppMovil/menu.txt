@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/green"
+    tools:context=".administrador.MainActivityAdmin">
+
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:src="@drawable/tractor" />
+
+    <Button
+        android:id="@+id/btn_parqueadero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parqueaderos"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:background="@color/greenBtn"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:id="@+id/btn_vendedores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="vendedores"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:background="@color/greenBtn"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:id="@+id/btn_salir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:src = "@drawable/ic_launcher_icon_exit_foreground"
+        android:layout_margin="5dp"/>
+
+</LinearLayout>
+
+

@@ -66,16 +66,48 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
+            android:layout_height="154dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Parqueadero" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/campo_buscar_parqueadero"
+                    android:layout_width="272dp"
+                    android:layout_height="66dp"
+                    android:hint="Nit" />
+
+                <Button
+                    android:id="@+id/btnBuscarParqueadero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green"
+                    android:text="Buscar"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCrearParqueadero"
+                android:layout_width="365dp"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:text="Crear Parqueadero"
+                android:textColor="@color/white" />
         </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerListaParqueadero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </FrameLayout>

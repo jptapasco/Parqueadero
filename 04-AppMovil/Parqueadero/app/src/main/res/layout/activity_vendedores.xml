@@ -64,18 +64,70 @@
                 android:textColor="@color/white"
                 android:textSize="10dp" />
 
-
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
+            android:layout_height="617dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Vendedores" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/campo_buscar_documento"
+                    android:layout_width="213dp"
+                    android:layout_height="66dp"
+                    android:hint="Documento" />
+
+                <Button
+                    android:id="@+id/btnBuscarVendedor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/green"
+                    android:text="Buscar"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_crear_vendedor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/blue"
+                    android:clickable="true"
+                    android:tooltipText="Agregar Vendedor"
+                    app:fabCustomSize="50dp"
+                    app:maxImageSize="60dp"
+                    app:srcCompat="@drawable/ic_launcher_icon_add_foreground"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnVendedorAsignado"
+                android:layout_width="365dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/green"
+                android:text="VENDEDORES ASIGNADOS"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnVendedorSinAsignar"
+                android:layout_width="365dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/green"
+                android:text="VENDEDORES SIN ASIGNAR"
+                android:textColor="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerListaVendedores"
+                android:layout_width="match_parent"
+                android:layout_height="415dp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

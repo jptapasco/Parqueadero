@@ -69,7 +69,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="154dp"
+            android:layout_height="687dp"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -97,17 +97,19 @@
                 android:id="@+id/btnCrearParqueadero"
                 android:layout_width="365dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="@color/green"
                 android:text="Crear Parqueadero"
                 android:textColor="@color/white" />
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerListaParqueadero"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp"
-            >
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerListaParqueadero"
+                android:layout_width="match_parent"
+                android:layout_height="546dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>

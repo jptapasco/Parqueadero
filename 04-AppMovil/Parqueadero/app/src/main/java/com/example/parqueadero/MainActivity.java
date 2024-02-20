@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     public void cambiarActivity(String rol){
         if (rol.equalsIgnoreCase("ADMIN")){
             System.out.println("INICIO SESION COMO ADMIN");
-            Intent intencion = new Intent(getApplicationContext(), Vendedores.class);
+            Intent intencion = new Intent(getApplicationContext(), MainActivityAdmin.class);
             startActivity(intencion);
             finish();
         }else{

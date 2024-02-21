@@ -40,7 +40,7 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
         TextView apellido;
         Button btnInfo;
         Button btnEditarVendedor;
-        Button btnDesligarVendedor;
+        Button btnDesligarAsignar;
         public ViewHolder(View itemView){
             super(itemView);
             contexto = itemView.getContext();
@@ -49,7 +49,7 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
             apellido = itemView.findViewById(R.id.etqApellido);
             btnInfo = itemView.findViewById(R.id.btnInfoVendedor);
             btnEditarVendedor = itemView.findViewById(R.id.btnEditarVendedor);
-            btnDesligarVendedor = itemView.findViewById(R.id.btnDesligarVendedor);
+            btnDesligarAsignar = itemView.findViewById(R.id.btn_Desligar_Asignar);
         }
 
         public void cargarPersona(Persona persona){
@@ -71,7 +71,7 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
                 }
             });
 
-            btnDesligarVendedor.setOnClickListener(new View.OnClickListener() {
+            btnDesligarAsignar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     System.out.println("Btn Desligar Vendedores");

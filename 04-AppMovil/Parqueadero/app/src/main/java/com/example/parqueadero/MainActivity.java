@@ -21,6 +21,8 @@ import org.json.JSONArray;
 
 import com.example.parqueadero.administrador.Vendedores;
 import com.example.parqueadero.utils.Config;
+import com.example.parqueadero.vendedor.MainActivityVendedor;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -30,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
     EditText campo_correo;
     EditText campo_password;
     Config dataConfig;
+    String nit;
+    String nombre;
+    String direccion;
+    String telefono;
+    String numVendedores;
+    String id_asignacion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,11 +122,11 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < parqueadero.length(); i++) {
                         JSONObject parqueaderoObj = parqueadero.getJSONObject(i);
 
-                        String nit = parqueaderoObj.getString("nit");
-                        String nombre = parqueaderoObj.getString("nombre");
-                        String direccion = parqueaderoObj.getString("direccion");
-                        String telefono = parqueaderoObj.getString("telefono");
-                        String numVendedores = parqueaderoObj.getString("num_vendedores");
+                        nit = parqueaderoObj.getString("nit");
+                        nombre = parqueaderoObj.getString("nombre");
+                        direccion = parqueaderoObj.getString("direccion");
+                        telefono = parqueaderoObj.getString("telefono");
+                        numVendedores = parqueaderoObj.getString("num_vendedores");
 
                     }
                 } catch (JSONException e) {
@@ -149,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
-                    String id_asignacion = respuesta.getString("id_asignacion");
+                    id_asignacion = respuesta.getString("id_asignacion");
                     System.out.println("ID Asignacion: "+id_asignacion);
                 } catch (JSONException e) {
                     System.out.println("todo mal");
@@ -179,6 +187,15 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }else{
             System.out.println("INICIO SESION COMO VENDEDOR");
+            Intent intencion = new Intent(getApplicationContext(), MainActivityVendedor.class);
+            intencion.putExtra("nit",nit);
+            intencion.putExtra("nombre",nombre);
+            intencion.putExtra("direccion",direccion);
+            intencion.putExtra("telefono",telefono);
+            intencion.putExtra("numVendedores",numVendedores);
+            intencion.putExtra("id_asignacion",id_asignacion);
+            startActivity(intencion);
+            finish();
         }
     }
 

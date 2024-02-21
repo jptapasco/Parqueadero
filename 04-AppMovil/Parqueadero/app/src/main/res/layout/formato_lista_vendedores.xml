@@ -110,7 +110,7 @@
                     android:textColor="@color/white" />
 
                 <Button
-                    android:id="@+id/btnDesligarVendedor"
+                    android:id="@+id/btn_Desligar_Asignar"
                     android:layout_width="110dp"
                     android:layout_height="35dp"
                     android:layout_marginLeft="40dp"

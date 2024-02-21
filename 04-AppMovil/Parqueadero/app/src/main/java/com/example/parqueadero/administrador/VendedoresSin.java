@@ -3,10 +3,12 @@ package com.example.parqueadero.administrador;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,14 +20,16 @@ import com.example.parqueadero.R;
 import com.example.parqueadero.utils.Config;
 import com.example.parqueadero.utils.Persona;
 import com.example.parqueadero.utils.PersonaAdapter;
+import com.example.parqueadero.utils.PersonaSinAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vendedores extends AppCompatActivity {
+public class VendedoresSin extends AppCompatActivity {
     Button btnParqueadero;
     Button btnVendedor;
     Button btnSalir;
@@ -34,13 +38,11 @@ public class Vendedores extends AppCompatActivity {
     Config dataConfig;
     List<Persona> listaPersona;
     RecyclerView recyclerView;
-    PersonaAdapter adapter;
-
-
+    PersonaSinAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vendedores);
+        setContentView(R.layout.activity_vendedores_sin);
 
         btnParqueadero = findViewById(R.id.btn_parqueadero);
         btnVendedor = findViewById(R.id.btn_vendedores);
@@ -65,36 +67,36 @@ public class Vendedores extends AppCompatActivity {
             }
         });
 
-        btnVendedoresAsignados.setEnabled(false);
-
-        getBtnVendedoresSinAsignacion.setOnClickListener(new View.OnClickListener() {
+        getBtnVendedoresSinAsignacion.setEnabled(false);
+        btnVendedoresAsignados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intencion = new Intent(getApplicationContext(), VendedoresSin.class);
+                Intent intencion = new Intent(getApplicationContext(), Vendedores.class);
                 startActivity(intencion);
             }
         });
 
         dataConfig = new Config(getApplicationContext());
-        recyclerView = findViewById(R.id.recyclerListaVendedores);
+        recyclerView = findViewById(R.id.recyclerListaVendedoresSin);
         listaPersona = new ArrayList<>();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        vendedoresConAsignacion();
+        vendedoresSinAsignacion();
     }
-    public void vendedoresConAsignacion(){
+
+    public void vendedoresSinAsignacion(){
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-Personas/ObtenerPersonas.php");
+        String url = dataConfig.getEndPoint("/API-Personas/ObtenerPersonasSinAsignar.php");
         StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
-                    System.out.println("Respuesta API Personas Con Asignacion: "+respuesta);
-                    cargarListaPersonasAsignadas(respuesta.getJSONArray("registros"));
+                    System.out.println("Respuesta API Personas SIN Asignacion: "+respuesta);
+                    cargarListaPersonasSinAsignacion(respuesta.getJSONArray("registros"));
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -109,17 +111,17 @@ public class Vendedores extends AppCompatActivity {
         queue.add(solicitud);
     }
 
-    public void cargarListaPersonasAsignadas(JSONArray datos){
-        List<Persona> listaPersonaAsignada = new ArrayList<>();
+    public void cargarListaPersonasSinAsignacion(JSONArray datos){
+        List<Persona> listaPersonaSinAsignacion = new ArrayList<>();
         for (int i = 0 ; i < datos.length() ; i++ ){
             try {
                 JSONObject vendedor = datos.getJSONObject(i);
-                listaPersonaAsignada.add(new Persona(vendedor.getString("cedula"),vendedor.getString("nombre"), vendedor.getString("apellidos")));
+                listaPersonaSinAsignacion.add(new Persona(vendedor.getString("cedula"),vendedor.getString("nombre"), vendedor.getString("apellidos")));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }
-        adapter = new PersonaAdapter(listaPersonaAsignada);
+        adapter = new PersonaSinAdapter(listaPersonaSinAsignacion);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
     }

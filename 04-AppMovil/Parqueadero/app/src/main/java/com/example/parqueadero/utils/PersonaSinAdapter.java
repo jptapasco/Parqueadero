@@ -12,20 +12,20 @@ import com.example.parqueadero.R;
 import org.w3c.dom.Text;
 import java.util.List;
 
-public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHolder> {
+public class PersonaSinAdapter extends RecyclerView.Adapter<PersonaSinAdapter.ViewHolder> {
     private List<Persona> listaPersona;
 
-    public PersonaAdapter(List<Persona> listaPersona){this.listaPersona = listaPersona;}
+    public PersonaSinAdapter(List<Persona> listaPersona){this.listaPersona = listaPersona;}
 
     @NonNull
     @Override
-    public PersonaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_lista_vendedores, parent,false);
+    public PersonaSinAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_lista_vendedores_sin, parent,false);
         return new ViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PersonaAdapter.ViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull PersonaSinAdapter.ViewHolder holder, int position){
         Persona persona = listaPersona.get(position);
         holder.cargarPersona(persona);
     }
@@ -40,7 +40,7 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
         TextView apellido;
         Button btnInfo;
         Button btnEditarVendedor;
-        Button btnDesligar;
+        Button btnAsignar;
         public ViewHolder(View itemView){
             super(itemView);
             contexto = itemView.getContext();
@@ -49,7 +49,7 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
             apellido = itemView.findViewById(R.id.etqApellido);
             btnInfo = itemView.findViewById(R.id.btnInfoVendedor);
             btnEditarVendedor = itemView.findViewById(R.id.btnEditarVendedor);
-            btnDesligar = itemView.findViewById(R.id.btnDesligar);
+            btnAsignar = itemView.findViewById(R.id.btnAsignar);
         }
 
         public void cargarPersona(Persona persona){
@@ -71,12 +71,13 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
                 }
             });
 
-            btnDesligar.setOnClickListener(new View.OnClickListener() {
+            btnAsignar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("Btn Desligar Vendedores");
+                    System.out.println("Btn Asignar Vendedores");
                 }
             });
         }
     }
 }
+

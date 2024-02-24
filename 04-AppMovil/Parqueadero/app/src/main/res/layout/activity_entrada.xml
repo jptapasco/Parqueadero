@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vendedor.Entrada">
+    tools:context=".vendedor.Entrada"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +15,73 @@
         >
 
         <include layout="@layout/menu_vendedor"/>
+
         <TextView
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entrada"
+            android:textColor="@color/greenBtn"
+            android:text="REGISTRAR ENTRADA DE VEHICULOS"
             android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PLACA:"
+                android:textColor="@color/greenBtn"
+                android:textSize="20sp"
+                android:layout_marginTop="50dp"
+                />
+            <EditText
+                android:id="@+id/campoPlaca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="25sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VEHICULO:"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/greenBtn"
+                android:textSize="20sp"
+                />
+            <Spinner
+                android:id="@+id/spinnerTarifaEntrada"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TITULAR:"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/greenBtn"
+                android:textSize="20sp"
+                />
+            <EditText
+                android:id="@+id/campoTitular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="25sp" />
+            <Button
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="INGRESAR"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:background="@color/greenBtn"
+                />
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

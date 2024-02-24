@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".vendedor.Tarifas"
+            android:exported="false" />
+        <activity
+            android:name=".vendedor.Historial"
+            android:exported="false" />
+        <activity
+            android:name=".vendedor.Entrada"
+            android:exported="false" />
+        <activity
             android:name=".administrador.CrearParqueadero"
             android:exported="false" />
         <activity

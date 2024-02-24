@@ -34,6 +34,7 @@ public class MainActivityAdmin extends AppCompatActivity {
     Button btnVendedor;
     Button btnSalir;
     Config dataConfig;
+    Button btnCrearParqueadero;
     List<Parqueadero> listaParqueadero;
     RecyclerView recyclerView;
     ParqueaderoAdapter adapter;
@@ -46,6 +47,7 @@ public class MainActivityAdmin extends AppCompatActivity {
         btnParqueadero = findViewById(R.id.btn_parqueadero);
         btnVendedor = findViewById(R.id.btn_vendedores);
         btnSalir = findViewById(R.id.btn_salir);
+        btnCrearParqueadero = findViewById(R.id.btnCrearParqueadero);
         recyclerView = findViewById(R.id.recyclerListaParqueadero);
 
         dataConfig = new Config(getApplicationContext());
@@ -65,6 +67,14 @@ public class MainActivityAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intencion = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intencion);
+            }
+        });
+
+        btnCrearParqueadero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intencion = new Intent(getApplicationContext(), CrearParqueadero.class);
                 startActivity(intencion);
             }
         });
@@ -116,5 +126,4 @@ public class MainActivityAdmin extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
     }
-
 }

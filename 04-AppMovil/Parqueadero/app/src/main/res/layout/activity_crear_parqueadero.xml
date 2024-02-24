@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".administrador.CrearParqueadero"
+    android:padding="20dp"
+    android:gravity="center"
+    >
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/tractor" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="Creando parqueadero"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NIT:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:id="@+id/campo_nit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:inputType="number"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOMBRE:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:id="@+id/campo_nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:inputType="text"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DIRECCION:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:id="@+id/campo_direccion"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:inputType="text"
+        android:text=""
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TELEFONO:"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:id="@+id/campo_telefono"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:inputType="number"
+        android:textSize="25sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_salirCrearParqueadero"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:text="Salir"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <!-- Agrega un espacio entre los botones -->
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/btnCreateParking"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:onClick="crearParqueadero"
+            android:text="Crear"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</LinearLayout>

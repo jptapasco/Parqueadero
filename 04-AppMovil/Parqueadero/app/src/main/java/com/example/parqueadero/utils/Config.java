@@ -12,7 +12,7 @@ import java.util.Properties;
 public class Config {
     String apiHost;
 
-    public Config(Context context){
+    public Config(Context context) {
         // Carga el archivo properties
         Resources res = context.getResources();
         InputStream inputStream = res.openRawResource(R.raw.config);
@@ -31,8 +31,9 @@ public class Config {
     public String getApiHost() {
         return apiHost;
     }
+
     public String getEndPoint(String endpoint) {
         endpoint = endpoint.replaceFirst("/", "");
-        return apiHost+"/"+endpoint;
+        return apiHost + "/" + endpoint;
     }
 }

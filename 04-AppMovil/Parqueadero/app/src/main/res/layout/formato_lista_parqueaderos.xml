@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="15dp"
     app:cardCornerRadius="15dp">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/greenTarget"
-        >
+        android:background="@color/greenTarget">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,8 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:textColor="@color/black"
@@ -30,16 +28,15 @@
                     android:layout_height="wrap_content"
                     android:text="NIT:"
                     android:textSize="15dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/etqNit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="XXXX"
                     android:textSize="15dp"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="70dp"
@@ -48,8 +45,7 @@
                     android:textSize="15dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:layout_marginLeft="60dp"
-                    />
+                    android:layout_marginLeft="60dp" />
 
                 <TextView
                     android:id="@+id/etqNombre"
@@ -57,38 +53,36 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:text="XXXXXXXXXXXX"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="76dp"
-                android:layout_height="wrap_content"
-                android:text="Direccion:"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/etqDireccion"
-                android:textSize="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                android:textColor="@color/black"
-                />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="76dp"
+                    android:layout_height="wrap_content"
+                    android:text="Direccion:"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/etqDireccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
-                >
+                android:layout_gravity="center_horizontal">
 
                 <Button
                     android:id="@+id/btnEditar"

@@ -34,42 +34,32 @@ public class CrearParqueadero extends AppCompatActivity {
     EditText campo_direccion;
     EditText campo_telefono;
     Button salirCrearParqueadero;
-    Button btnCreateParking;
     Config dataConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dataConfig = new Config(getApplicationContext());
         setContentView(R.layout.activity_crear_parqueadero);
 
-        dataConfig = new Config(getApplicationContext());
         salirCrearParqueadero = findViewById(R.id.btn_salirCrearParqueadero);
-        btnCreateParking = findViewById(R.id.btnCreateParking);
-
-
 
         salirCrearParqueadero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intencion = new Intent(getApplicationContext(), MainActivityAdmin.class);
                 startActivity(intencion);
-                finish();
-            }
-        });
-
-        btnCreateParking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                crearParqueadero();
             }
         });
     }
 
-    public void crearParqueadero() {
+    public void crearParqueadero(View vista) {
+        System.out.println("si entro ");
         campo_nit = findViewById(R.id.campo_nit);
         campo_nombre = findViewById(R.id.campo_nombre);
-        campo_nit = findViewById(R.id.campo_direccion);
+        campo_direccion = findViewById(R.id.campo_direccion);
         campo_telefono = findViewById(R.id.campo_telefono);
+
         String nit = campo_nit.getText().toString();
         String nombre = campo_nombre.getText().toString();
         String direccion = campo_direccion.getText().toString();
@@ -84,7 +74,8 @@ public class CrearParqueadero extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject resultado = new JSONObject(response);
-                            System.out.println("Resultado: "+resultado);
+                            Toast.makeText(CrearParqueadero.this, "Parqueadero creado exitosamente", Toast.LENGTH_SHORT).show();
+                            finish();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -108,5 +99,4 @@ public class CrearParqueadero extends AppCompatActivity {
         };
         queue.add(stringRequest);
     }
-
 }

@@ -16,32 +16,38 @@ import java.util.List;
 
 public class ParqueaderoAdapter extends RecyclerView.Adapter<ParqueaderoAdapter.ViewHolder> {
     private List<Parqueadero> listaParqueadero;
-    public ParqueaderoAdapter(List<Parqueadero> listaParqueadero){this.listaParqueadero = listaParqueadero;}
+
+    public ParqueaderoAdapter(List<Parqueadero> listaParqueadero) {
+        this.listaParqueadero = listaParqueadero;
+    }
 
     @NonNull
     @Override
-    public ParqueaderoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_lista_parqueaderos,parent,false);
+    public ParqueaderoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.formato_lista_parqueaderos, parent, false);
         return new ViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ParqueaderoAdapter.ViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ParqueaderoAdapter.ViewHolder holder, int position) {
         Parqueadero resumen = listaParqueadero.get(position);
         holder.cargarLista(resumen);
     }
 
     @Override
-    public  int getItemCount(){return listaParqueadero.size();}
+    public int getItemCount() {
+        return listaParqueadero.size();
+    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         Context contexto;
         TextView etqNit;
         TextView etqNombre;
         TextView etqDireccion;
         Button btnEditar;
         Button btnEliminar;
-        public ViewHolder(View itemView){
+
+        public ViewHolder(View itemView) {
             super(itemView);
 
             contexto = itemView.getContext();
@@ -52,7 +58,7 @@ public class ParqueaderoAdapter extends RecyclerView.Adapter<ParqueaderoAdapter.
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
 
-        public void cargarLista(Parqueadero resumen){
+        public void cargarLista(Parqueadero resumen) {
             etqNit.setText(resumen.nit);
             etqNombre.setText(resumen.nombre);
             etqDireccion.setText(resumen.direccion);

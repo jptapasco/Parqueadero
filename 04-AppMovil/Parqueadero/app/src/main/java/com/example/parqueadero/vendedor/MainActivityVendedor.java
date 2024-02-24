@@ -1,16 +1,10 @@
 package com.example.parqueadero.vendedor;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.example.parqueadero.MainActivity;
 import com.example.parqueadero.R;
-import com.example.parqueadero.administrador.MainActivityAdmin;
 
 public class MainActivityVendedor extends AppCompatActivity {
 

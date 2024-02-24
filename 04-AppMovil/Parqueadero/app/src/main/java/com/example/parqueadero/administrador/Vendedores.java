@@ -1,12 +1,14 @@
 package com.example.parqueadero.administrador;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,6 +24,7 @@ import com.example.parqueadero.utils.PersonaAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +88,8 @@ public class Vendedores extends AppCompatActivity {
         super.onResume();
         vendedoresConAsignacion();
     }
-    public void vendedoresConAsignacion(){
+
+    public void vendedoresConAsignacion() {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-Personas/ObtenerPersonas.php");
         StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -93,7 +97,7 @@ public class Vendedores extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
-                    System.out.println("Respuesta API Personas Con Asignacion: "+respuesta);
+                    System.out.println("Respuesta API Personas Con Asignacion: " + respuesta);
                     cargarListaPersonasAsignadas(respuesta.getJSONArray("registros"));
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -109,12 +113,12 @@ public class Vendedores extends AppCompatActivity {
         queue.add(solicitud);
     }
 
-    public void cargarListaPersonasAsignadas(JSONArray datos){
+    public void cargarListaPersonasAsignadas(JSONArray datos) {
         List<Persona> listaPersonaAsignada = new ArrayList<>();
-        for (int i = 0 ; i < datos.length() ; i++ ){
+        for (int i = 0; i < datos.length(); i++) {
             try {
                 JSONObject vendedor = datos.getJSONObject(i);
-                listaPersonaAsignada.add(new Persona(vendedor.getString("cedula"),vendedor.getString("nombre"), vendedor.getString("apellidos")));
+                listaPersonaAsignada.add(new Persona(vendedor.getString("cedula"), vendedor.getString("nombre"), vendedor.getString("apellidos")));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

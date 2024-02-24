@@ -1,14 +1,14 @@
 package com.example.parqueadero.administrador;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -81,25 +81,25 @@ public class MainActivityAdmin extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         obtenerParqueaderos();
     }
 
-    public void obtenerParqueaderos(){
+    public void obtenerParqueaderos() {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-parqueadero/Obtener.php");
         StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject respuesta =  new JSONObject(response);
-                    System.out.println("Respuesta api parqueadero: "+respuesta);
+                    JSONObject respuesta = new JSONObject(response);
+                    System.out.println("Respuesta api parqueadero: " + respuesta);
                     cargarListaParqueadero(respuesta.getJSONArray("registros"));
                 } catch (JSONException e) {
                     System.out.println("El servidor GET responde con error");
                     System.out.println(e.getMessage());
-                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: "+e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -112,12 +112,12 @@ public class MainActivityAdmin extends AppCompatActivity {
         queue.add(solicitud);
     }
 
-    public void cargarListaParqueadero(JSONArray datos){
+    public void cargarListaParqueadero(JSONArray datos) {
         listaParqueadero = new ArrayList<>();
-        for (int i = 0; i < datos.length(); i++){
+        for (int i = 0; i < datos.length(); i++) {
             try {
                 JSONObject parqueadero = datos.getJSONObject(i);
-                listaParqueadero.add(new Parqueadero(parqueadero.getString("nit"), parqueadero.getString("nombre"),parqueadero.getString("direccion")));
+                listaParqueadero.add(new Parqueadero(parqueadero.getString("nit"), parqueadero.getString("nombre"), parqueadero.getString("direccion")));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

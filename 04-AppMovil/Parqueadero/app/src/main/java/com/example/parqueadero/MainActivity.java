@@ -1,7 +1,5 @@
 package com.example.parqueadero;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,14 +17,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.parqueadero.administrador.MainActivityAdmin;
-import org.json.JSONArray;
-
-import com.example.parqueadero.administrador.Vendedores;
 import com.example.parqueadero.utils.Config;
 import com.example.parqueadero.vendedor.MainActivityVendedor;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     String telefono;
     String numVendedores;
     String id_asignacion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,41 +49,41 @@ public class MainActivity extends AppCompatActivity {
         validarSesion();
     }
 
-    public void validarUsuario(View vista){
+    public void validarUsuario(View vista) {
         String correo = campo_correo.getText().toString();
         String password = campo_password.getText().toString();
 
-        if ( !correo.equals("") && !password.equals("") ){
+        if (!correo.equals("") && !password.equals("")) {
             apiValidarUsuario(correo, password);
-        }else{
-            Toast.makeText( getApplicationContext(), "Datos Obligatorios", Toast.LENGTH_LONG ).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Datos Obligatorios", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void apiValidarUsuario(String correo, String password){
+    public void apiValidarUsuario(String correo, String password) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-login/acceso.php");
 
-        StringRequest solicitud =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject datos = new JSONObject(response);
                     System.out.println(datos);
-                    if(datos.getBoolean("success")){
+                    if (datos.getBoolean("success")) {
                         System.out.println("entro");
                         JSONObject usuario = datos.getJSONObject("user");
                         String status = usuario.getString("estado");
                         String rol = usuario.getString("tipo");
                         System.out.println(status);
-                        if (status.equalsIgnoreCase("INACTIVO")){
+                        if (status.equalsIgnoreCase("INACTIVO")) {
                             System.out.println("Usuario Inactivo");
-                            Toast.makeText( getApplicationContext(), "Usuario INACTIVO", Toast.LENGTH_LONG ).show();
+                            Toast.makeText(getApplicationContext(), "Usuario INACTIVO", Toast.LENGTH_LONG).show();
                         } else if (rol.equalsIgnoreCase("VENDEDOR")) {
-                            String id_usuario  = usuario.getString("id");
+                            String id_usuario = usuario.getString("id");
                             obtenerParking(id_usuario);
                             obtenerAsignacion(id_usuario);
-                        } else if (rol.equalsIgnoreCase("ADMIN")){
+                        } else if (rol.equalsIgnoreCase("ADMIN")) {
                             cambiarActivity(rol);
                         }
 
@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Joa mani el servidor POST responde con un error:");
                 System.out.println(error.getMessage());
             }
-        }){
-            protected Map<String, String> getParams(){
+        }) {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("correo", correo);
                 params.put("contrasena", password);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         queue.add(solicitud);
     }
 
-    public void obtenerParking(String id_usuario){
+    public void obtenerParking(String id_usuario) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-Ticket/obtenerParqueadero.php");
         StringRequest consulta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Joa mani el servidor POST responde con un error:");
                 System.out.println(error.getMessage());
             }
-        }){
-            protected Map<String, String> getParams(){
+        }) {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id_usuario", id_usuario);
                 return params;
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         queue.add(consulta);
     }
 
-    public void obtenerAsignacion(String id_usuario){
+    public void obtenerAsignacion(String id_usuario) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-parqueadero/obtenerIdAsignacion.php");
         StringRequest consulta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject respuesta = new JSONObject(response);
                     id_asignacion = respuesta.getString("id_asignacion");
-                    System.out.println("ID Asignacion: "+id_asignacion);
+                    System.out.println("ID Asignacion: " + id_asignacion);
                 } catch (JSONException e) {
                     System.out.println("todo mal");
                     throw new RuntimeException(e);
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Joa mani el servidor POST responde con un error:");
                 System.out.println(error.getMessage());
             }
-        }){
-            protected Map<String, String> getParams(){
+        }) {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id_usuario", id_usuario);
                 return params;
@@ -179,27 +179,28 @@ public class MainActivity extends AppCompatActivity {
         };
         queue.add(consulta);
     }
-    public void cambiarActivity(String rol){
-        if (rol.equalsIgnoreCase("ADMIN")){
+
+    public void cambiarActivity(String rol) {
+        if (rol.equalsIgnoreCase("ADMIN")) {
             System.out.println("INICIO SESION COMO ADMIN");
             Intent intencion = new Intent(getApplicationContext(), MainActivityAdmin.class);
             startActivity(intencion);
             finish();
-        }else{
+        } else {
             System.out.println("INICIO SESION COMO VENDEDOR");
             Intent intencion = new Intent(getApplicationContext(), MainActivityVendedor.class);
-            intencion.putExtra("nit",nit);
-            intencion.putExtra("nombre",nombre);
-            intencion.putExtra("direccion",direccion);
-            intencion.putExtra("telefono",telefono);
-            intencion.putExtra("numVendedores",numVendedores);
-            intencion.putExtra("id_asignacion",id_asignacion);
+            intencion.putExtra("nit", nit);
+            intencion.putExtra("nombre", nombre);
+            intencion.putExtra("direccion", direccion);
+            intencion.putExtra("telefono", telefono);
+            intencion.putExtra("numVendedores", numVendedores);
+            intencion.putExtra("id_asignacion", id_asignacion);
             startActivity(intencion);
             finish();
         }
     }
 
-    public void validarSesion(){
+    public void validarSesion() {
         SharedPreferences sharedPreferences = getSharedPreferences("Parqueadero", Context.MODE_PRIVATE);
 
         String idUsuario = sharedPreferences.getString("id_usuario", null);

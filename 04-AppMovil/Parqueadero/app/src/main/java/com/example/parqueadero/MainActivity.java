@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String nombre;
     String direccion;
     String telefono;
+    String rol;
     String numVendedores;
     String id_asignacion;
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("entro");
                         JSONObject usuario = datos.getJSONObject("user");
                         String status = usuario.getString("estado");
-                        String rol = usuario.getString("tipo");
+                        rol = usuario.getString("tipo");
                         System.out.println(status);
                         if (status.equalsIgnoreCase("INACTIVO")) {
                             System.out.println("Usuario Inactivo");
@@ -127,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
                         direccion = parqueaderoObj.getString("direccion");
                         telefono = parqueaderoObj.getString("telefono");
                         numVendedores = parqueaderoObj.getString("num_vendedores");
-
                     }
+                    cambiarActivity(rol);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject respuesta = new JSONObject(response);
                     id_asignacion = respuesta.getString("id_asignacion");
+                    cambiarActivity(rol);
                     System.out.println("ID Asignacion: " + id_asignacion);
                 } catch (JSONException e) {
                     System.out.println("todo mal");
@@ -186,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intencion = new Intent(getApplicationContext(), MainActivityAdmin.class);
             startActivity(intencion);
             finish();
-        } else {
+        } else if (rol.equalsIgnoreCase("VENDEDOR")){
             System.out.println("INICIO SESION COMO VENDEDOR");
             Intent intencion = new Intent(getApplicationContext(), MainActivityVendedor.class);
             intencion.putExtra("nit", nit);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,82 +9,199 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:background="@color/green"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/tractor_image"
-                android:layout_width="56dp"
+                android:layout_width="53dp"
                 android:layout_height="53dp"
-                android:layout_margin="16dp"
+                android:layout_margin="12dp"
                 android:src="@drawable/tractor" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnParqueaderoV"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:allowClickWhenDisabled="true"
+                android:layout_marginTop="15dp"
                 android:background="@color/greenBtn"
-                android:text=""
-                android:textColor="@android:color/white"
-                android:textSize="8dp" />
+                android:src="@drawable/ic_launcher_parqueadero_foreground"
+                android:textSize="10dp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnEntradaV"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/greenBtn"
-                android:textColor="@android:color/white"
+                android:src="@drawable/ic_launcher_entrada_foreground"
                 android:textSize="10dp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnHistorialV"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/greenBtn"
-                android:textColor="@android:color/white"
+                android:src="@drawable/ic_launcher_historial_foreground"
                 android:textSize="10dp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnTarifasV"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/greenBtn"
-                android:textColor="@android:color/white"
+                android:src="@drawable/ic_launcher_tarifas_foreground"
                 android:textSize="10dp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_salir"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/red"
                 android:textColor="@color/white"
+                android:src="@drawable/ic_launcher_exit_foreground"
                 android:textSize="10dp" />
 
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:text="VENDEDORES:"
+                    android:textSize="15dp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/etqVendedores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="XX"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:textColor="@color/green"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="NOMBRE:"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="40dp"
+
+                    />
+                <TextView
+                    android:id="@+id/etqNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXXXXXXXXXXXX"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:textColor="@color/green"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:text="NIT:"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/etqNit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXX"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="TELEFONO:"
+                    android:textSize="15dp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="50dp"
+                    />
+
+                <TextView
+                    android:id="@+id/etqTelefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="XXXXXXXXXXXX"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="DIRECCIÓN:"
+                    android:textSize="15dp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/etqDireccion"
+                    android:textSize="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,31 +211,22 @@
                 <EditText
                     android:id="@+id/campo_buscar_parqueadero"
                     android:layout_width="272dp"
-                    android:layout_height="66dp"
+                    android:layout_height="match_parent"
                     android:hint="Nit" />
 
                 <Button
                     android:id="@+id/btnBuscarParqueadero"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/green"
                     android:text="Buscar"
                     android:textColor="@color/white" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnCrearParqueadero"
-                android:layout_width="365dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@color/green"
-                android:text="Crear Parqueadero"
-                android:textColor="@color/white" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerListaParqueadero"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>

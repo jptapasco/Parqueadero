@@ -9,4 +9,9 @@
     <color name="blue">#5FE1B4</color>
     <color name="blueTarget">#88C6EC</color>
     <color name="purpleTarget">#C099DE</color>
+    <color name="grayTarget">#647668</color>
+    <color name="yellowTarget">#E7EA44</color>
+    <color name="blueCard">#41E5E3</color>
+    <color name="orangeCard">#D67434</color>
+
 </resources>

@@ -9,13 +9,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/greenTarget">
+        android:padding="15dp"
+        android:background="@color/orangeCard">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="15dp"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"

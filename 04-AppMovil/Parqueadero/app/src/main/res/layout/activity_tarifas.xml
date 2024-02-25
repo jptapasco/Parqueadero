@@ -15,10 +15,56 @@
 
         <include layout="@layout/menu_vendedor"/>
         <TextView
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tarifas"
+            android:textColor="@color/greenBtn"
+            android:text="TARIFAS"
             android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VEHICULO:"
+                android:textColor="@color/greenBtn"
+                android:textSize="20sp"
+                />
+            <Spinner
+                android:id="@+id/spinnerTarifa"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tarifa:"
+                android:textColor="@color/greenBtn"
+                android:textSize="20sp"
+                android:layout_marginTop="30dp"
+                />
+            <EditText
+                android:id="@+id/campoEditTarifa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="25sp"
+                android:layout_marginBottom="20dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerTarifa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

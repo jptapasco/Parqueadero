@@ -20,6 +20,7 @@ import com.example.parqueadero.R;
 import com.example.parqueadero.utils.Config;
 import com.example.parqueadero.utils.Persona;
 import com.example.parqueadero.utils.PersonaSinAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,7 @@ public class VendedoresSin extends AppCompatActivity {
     Button getBtnVendedoresSinAsignacion;
     Config dataConfig;
     List<Persona> listaPersona;
+    FloatingActionButton btn_crear_vendedor;
     RecyclerView recyclerView;
     PersonaSinAdapter adapter;
 
@@ -50,7 +52,14 @@ public class VendedoresSin extends AppCompatActivity {
         btnVendedoresAsignados = findViewById(R.id.btnVendedorAsignado);
         getBtnVendedoresSinAsignacion = findViewById(R.id.btnVendedorSinAsignar);
         btnVendedor.setEnabled(false);
-
+        btn_crear_vendedor = findViewById(R.id.btn_crear_vendedor);
+        btn_crear_vendedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intencion = new Intent(getApplicationContext(), CrearVendedor.class);
+                startActivity(intencion);
+            }
+        });
         btnParqueadero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,7 +17,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.parqueadero.MainActivity;
 import com.example.parqueadero.R;
 import com.example.parqueadero.utils.Config;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

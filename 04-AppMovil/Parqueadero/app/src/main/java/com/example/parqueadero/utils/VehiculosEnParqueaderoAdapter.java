@@ -51,7 +51,7 @@ public class VehiculosEnParqueaderoAdapter extends RecyclerView.Adapter<Vehiculo
             super(itemView);
             contexto = itemView.getContext();
             etqTicketEn = itemView.findViewById(R.id.etqTicketEn);
-            etqTipoVehiculoEn = itemView.findViewById(R.id.etqTipoVehiculo);
+            etqTipoVehiculoEn = itemView.findViewById(R.id.etqTipoVehiculoEn);
             etqTarifaEn = itemView.findViewById(R.id.etqTarifaEn);
             etqPlacaEn = itemView.findViewById(R.id.etqPlacaEn);
             etqTitularEn = itemView.findViewById(R.id.etqTitularEn);

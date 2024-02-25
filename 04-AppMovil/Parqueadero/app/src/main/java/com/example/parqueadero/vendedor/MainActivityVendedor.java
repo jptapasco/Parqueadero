@@ -21,6 +21,8 @@ import com.example.parqueadero.R;
 import com.example.parqueadero.utils.Config;
 import com.example.parqueadero.utils.DetalleHistorial;
 import com.example.parqueadero.utils.DetalleHistorialAdapter;
+import com.example.parqueadero.utils.VehiculosEnParqueaderoAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +43,7 @@ public class MainActivityVendedor extends AppCompatActivity {
     String id_asignacion;
     RecyclerView recyclerView;
     Config dataConfig;
-    DetalleHistorialAdapter adapter;
+    VehiculosEnParqueaderoAdapter adapter;
     List<DetalleHistorial> listaAutosEnPk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +148,6 @@ public class MainActivityVendedor extends AppCompatActivity {
     //FUNCIÓN CALCULAR TIEMPO
     private String calcularTiempo(String ingreso) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         try {
             Date fechaIngreso = format.parse(ingreso);
             Date fechaActual = new Date();
@@ -172,7 +173,7 @@ public class MainActivityVendedor extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
-        adapter = new DetalleHistorialAdapter(listaAutosEnPk);
+        adapter = new VehiculosEnParqueaderoAdapter(listaAutosEnPk);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
     }

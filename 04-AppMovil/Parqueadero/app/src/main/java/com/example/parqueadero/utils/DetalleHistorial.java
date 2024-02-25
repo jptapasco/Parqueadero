@@ -21,6 +21,16 @@ public class DetalleHistorial {
         this.tiempo = tiempo;
     }
 
+    public DetalleHistorial(String id, String tipoVehiculo, String placa, String responsable, String tarifa, String entrada,String tiempo) {
+        this.id = id;
+        this.tipoVehiculo = tipoVehiculo;
+        this.placa = placa;
+        this.responsable = responsable;
+        this.tarifa = tarifa;
+        this.entrada = entrada;
+        this.tiempo = tiempo;
+    }
+
     public String getId() {
         return id;
     }

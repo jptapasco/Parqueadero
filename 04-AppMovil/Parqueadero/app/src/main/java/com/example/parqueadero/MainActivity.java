@@ -190,13 +190,17 @@ public class MainActivity extends AppCompatActivity {
             finish();
         } else if (rol.equalsIgnoreCase("VENDEDOR")){
             System.out.println("INICIO SESION COMO VENDEDOR");
+            SharedPreferences sharedPreferences = getSharedPreferences("mis_datos", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("nit", nit);
+            editor.putString("nombre", nombre);
+            editor.putString("direccion", direccion);
+            editor.putString("telefono", telefono);
+            editor.putString("numVendedores", numVendedores);
+            editor.putString("id_asignacion", id_asignacion);
+            editor.apply();
+
             Intent intencion = new Intent(getApplicationContext(), MainActivityVendedor.class);
-            intencion.putExtra("nit", nit);
-            intencion.putExtra("nombre", nombre);
-            intencion.putExtra("direccion", direccion);
-            intencion.putExtra("telefono", telefono);
-            intencion.putExtra("numVendedores", numVendedores);
-            intencion.putExtra("id_asignacion", id_asignacion);
             startActivity(intencion);
             finish();
         }

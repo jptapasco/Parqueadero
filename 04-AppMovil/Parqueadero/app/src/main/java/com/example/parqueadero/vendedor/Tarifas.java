@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,6 +41,8 @@ public class Tarifas extends AppCompatActivity {
     List<Tarifa> listaTarifa;
     RecyclerView recyclerView;
     TarifaAdapter adapter;
+    EditText campoEditTarifa;
+    Spinner spinnerTarifa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,16 @@ public class Tarifas extends AppCompatActivity {
 
         dataConfig = new Config(getApplicationContext());
         recyclerView = findViewById(R.id.recyclerTarifa);
+        spinnerTarifa = findViewById(R.id.spinnerTarifa);
+        campoEditTarifa = findViewById(R.id.campoEditTarifa);
+        String[] opciones = getResources().getStringArray(R.array.opciones_tarifa);
+
+        // Crear un adaptador para el spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
+        // Especificar el diseño del dropdown
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Configurar el adaptador en el spinner
+        spinnerTarifa.setAdapter(adapter);
 
         ImageView btnParqueaderoV = findViewById(R.id.btnParqueaderoV);
         ImageView btnEntrada = findViewById(R.id.btnEntradaV);
@@ -87,7 +103,52 @@ public class Tarifas extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         apiObtenerTarifa();
+        clickEnSpinner();
     }
+
+    public void  clickEnSpinner(){
+        spinnerTarifa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                String opcionSeleccionada = (String) parentView.getItemAtPosition(position);
+                System.out.println("opcion elejida:" + opcionSeleccionada);
+                apiSetCampoTarifa(opcionSeleccionada);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Toast.makeText(getApplicationContext(), "Ninguna Opcion Seleccionada", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void apiSetCampoTarifa(String opcionElejida){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-tarifas/obtenerTarifa.php?tipo_vehiculo="+opcionElejida);
+        StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject respuesta = new JSONObject(response);
+                    String temporal = respuesta.getString("tarifa");
+                    campoEditTarifa.setText(temporal);
+                } catch (JSONException e) {
+                    System.out.println("El servidor GET responde con error");
+                    System.out.println(e.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("El servidor GET responde con un error");
+                System.out.println(error.getMessage());
+            }
+        });
+        queue.add(solicitud);
+    }
+
 
     public void apiObtenerTarifa(){
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());

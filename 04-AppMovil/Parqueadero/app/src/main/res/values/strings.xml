@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Parqueadero</string>
+    <string-array name="opciones_tarifa">
+        <item>Camion</item>
+        <item>Camioneta</item>
+        <item>Carro</item>
+        <item>Moto</item>
+    </string-array>
+
 </resources>

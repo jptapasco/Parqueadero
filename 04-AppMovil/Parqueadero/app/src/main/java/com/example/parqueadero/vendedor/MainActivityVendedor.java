@@ -71,6 +71,11 @@ public class MainActivityVendedor extends AppCompatActivity {
         btnEntrada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences sharedPreferences = getSharedPreferences("mis_datos", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("id_asignacion", id_asignacion);
+                editor.apply();
                 Intent intencion = new Intent(getApplicationContext(), Entrada.class);
                 startActivity(intencion);
             }

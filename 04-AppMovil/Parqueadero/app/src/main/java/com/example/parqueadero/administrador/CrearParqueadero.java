@@ -68,8 +68,7 @@ public class CrearParqueadero extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-parqueadero/Insert.php");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -89,12 +88,12 @@ public class CrearParqueadero extends AppCompatActivity {
         }) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("nit", nit);
-                params.put("nombre", nombre);
-                params.put("direccion", direccion);
-                params.put("telefono", telefono);
-                return params;
+                Map<String, String> parame = new HashMap<>();
+                parame.put("nit", nit);
+                parame.put("nombre", nombre);
+                parame.put("direccion", direccion);
+                parame.put("telefono", telefono);
+                return parame;
             }
         };
         queue.add(stringRequest);

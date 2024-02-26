@@ -40,10 +40,10 @@
                 android:layout_marginTop="50dp"
                 />
             <EditText
-                android:id="@+id/campoPlaca"
+                android:id="@+id/campo_placa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="text"
                 android:textSize="25sp" />
             <TextView
                 android:layout_width="match_parent"
@@ -68,19 +68,21 @@
                 android:textSize="20sp"
                 />
             <EditText
-                android:id="@+id/campoTitular"
+                android:id="@+id/campo_titular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="text"
                 android:textSize="25sp" />
             <Button
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="INGRESAR"
+                android:onClick="crearEntrada"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:background="@color/greenBtn"
+
                 />
         </LinearLayout>
     </LinearLayout>

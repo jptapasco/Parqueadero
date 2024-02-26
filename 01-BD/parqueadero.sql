@@ -20,9 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `parqueadero`
 --
-DROP DATABASE IF EXISTS parqueadero;
-CREATE DATABASE parqueadero;
-USE parqueadero;
+DROP DATABASE IF EXISTS prqdr_db_05;
+CREATE DATABASE prqdr_db_05;
+USE prqdr_db_05;
 -- --------------------------------------------------------
 
 --

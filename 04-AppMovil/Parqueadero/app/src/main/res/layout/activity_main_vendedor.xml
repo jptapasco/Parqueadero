@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".vendedor.MainActivityVendedor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/menu_vendedor"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:paddingLeft="15dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:text="VENDEDORES:"
+                    android:textSize="15dp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/etqVendedores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="XX"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:textColor="@color/green"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="NOMBRE:"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="40dp"
+
+                    />
+                <TextView
+                    android:id="@+id/etqNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXXXXXXXXXXXX"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:textColor="@color/green"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:text="NIT:"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/etqNit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXX"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="TELEFONO:"
+                    android:textSize="15dp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="50dp"
+                    />
+
+                <TextView
+                    android:id="@+id/etqTelefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="XXXXXXXXXXXX"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="DIRECCIÓN:"
+                    android:textSize="15dp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/etqDireccion"
+                    android:textSize="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <EditText
+                    android:id="@+id/campo_buscar_parqueadero"
+                    android:layout_width="272dp"
+                    android:layout_height="match_parent"
+                    android:hint="Placa" />
+
+                <Button
+                    android:id="@+id/btnBuscarParqueadero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green"
+                    android:text="Buscar"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerListaVehiculos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

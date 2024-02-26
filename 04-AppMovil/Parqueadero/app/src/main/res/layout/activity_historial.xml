@@ -51,7 +51,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/campo_buscar_parqueadero"
+                android:id="@+id/campo_buscar_placa"
                 android:layout_width="272dp"
                 android:layout_height="66dp"
                 android:hint="Placa" />

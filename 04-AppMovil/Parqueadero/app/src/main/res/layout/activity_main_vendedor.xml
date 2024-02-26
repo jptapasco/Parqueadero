@@ -147,13 +147,13 @@
                 android:layout_marginBottom="20dp">
 
                 <EditText
-                    android:id="@+id/campo_buscar_parqueadero"
+                    android:id="@+id/campo_buscar_auto"
                     android:layout_width="272dp"
                     android:layout_height="match_parent"
                     android:hint="Placa" />
 
                 <Button
-                    android:id="@+id/btnBuscarParqueadero"
+                    android:id="@+id/btnBuscarAuto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/green"

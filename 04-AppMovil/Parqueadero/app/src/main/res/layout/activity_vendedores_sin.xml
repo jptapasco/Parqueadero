@@ -25,13 +25,13 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/campo_buscar_documento"
+                    android:id="@+id/campo_buscar_documento_sin"
                     android:layout_width="213dp"
                     android:layout_height="66dp"
                     android:hint="Documento" />
 
                 <Button
-                    android:id="@+id/btnBuscarVendedor"
+                    android:id="@+id/btnBuscarVendedor_sin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"

@@ -3,6 +3,8 @@ package com.example.parqueadero.vendedor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivityVendedor extends AppCompatActivity {
 
@@ -39,6 +43,8 @@ public class MainActivityVendedor extends AppCompatActivity {
     TextView etqDireccion;
     TextView etqTelefono;
     TextView etqNvendedores;
+    EditText campo_buscar_auto;
+    Button btnBuscarAuto;
     SharedPreferences sharedPreferences;
     String id_asignacion;
     RecyclerView recyclerView;
@@ -55,6 +61,8 @@ public class MainActivityVendedor extends AppCompatActivity {
         etqDireccion = findViewById(R.id.etqDireccion);
         etqTelefono = findViewById(R.id.etqTelefono);
         etqNvendedores = findViewById(R.id.etqVendedores);
+        campo_buscar_auto = findViewById(R.id.campo_buscar_auto);
+        btnBuscarAuto = findViewById(R.id.btnBuscarAuto);
 
         recyclerView = findViewById(R.id.recyclerListaVehiculos);
         dataConfig = new Config(getApplicationContext());
@@ -66,6 +74,19 @@ public class MainActivityVendedor extends AppCompatActivity {
         ImageView btnHistorial = findViewById(R.id.btnHistorialV);
         ImageView btnTarifa = findViewById(R.id.btnTarifasV);
         ImageView btnSalir = findViewById(R.id.btn_salirV);
+
+        btnBuscarAuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String placaBusqueda = campo_buscar_auto.getText().toString();
+
+                if (!placaBusqueda.equals("") ){
+                    buscadorAuto(placaBusqueda);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ingresa la placa", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         btnParqueaderoV.setEnabled(false);
         btnEntrada.setOnClickListener(new View.OnClickListener() {
@@ -181,5 +202,33 @@ public class MainActivityVendedor extends AppCompatActivity {
         adapter = new VehiculosEnParqueaderoAdapter(listaAutosEnPk);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    public void buscadorAuto(String placa){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-voce/buscarVehiculo.php?busqueda="+placa);
+        StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject datos = new JSONObject(response);
+                    JSONArray resultado = datos.getJSONArray("registros");
+                    if (resultado.length() > 0){
+                        cargarListaVehiculos(resultado);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Se encontraron Resultados", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Joa mani el servidor GET responde con un error:");
+                System.out.println(error.getMessage());
+            }
+        });
+        queue.add(solicitud);
     }
 }

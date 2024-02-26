@@ -108,7 +108,7 @@
             android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/btnCreateParking"
+
             android:layout_width="146dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

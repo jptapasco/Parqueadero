@@ -330,7 +330,7 @@ public class VerUsuario extends javax.swing.JFrame {
         Map<String, String> queryPerson = new HashMap<>();
         queryPerson.put("cedula", cedula);
 
-        String query = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/ConsultarPersona.php", queryPerson);
+        String query = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/ConsultarPersona.php", queryPerson);
 
         System.out.println("RESPUESTA " + query);
 

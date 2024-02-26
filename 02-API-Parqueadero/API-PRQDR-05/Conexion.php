@@ -3,7 +3,7 @@
 $servidor = 'localhost';
 $usuario = 'root';
 $contrasena = '';
-$nombre_de_base = 'parqueadero';
+$nombre_de_base = 'prqdr_db_05';
 
 try{
    $base_de_datos = new PDO("mysql:host=$servidor;dbname=$nombre_de_base", $usuario, $contrasena);

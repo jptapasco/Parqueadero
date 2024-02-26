@@ -274,7 +274,7 @@ public class Vendedores extends javax.swing.JPanel {
             // MAPEAMOS LOS DATOS
             Map<String, String> consultaUser = new HashMap<>();
             consultaUser.put("cedula",cedula);
-            String consultarUsuario = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/VerificarPersona.php",consultaUser);
+            String consultarUsuario = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/VerificarPersona.php",consultaUser);
             System.out.println("consultar usuario: " + consultarUsuario);
             JsonObject jsonResponse = gson.fromJson(consultarUsuario, JsonObject.class);
 
@@ -356,7 +356,7 @@ public class Vendedores extends javax.swing.JPanel {
               
         TituloInformativo.setText("USUARIOS CON PARQUEADERO ASOCIADO:");
         // PETICION PARA OBTENER TODOS LOS PARQUEADEROS 
-        String obtenerPersonas = consumo.consumoGET("http://localhost/APIenPHP/API-Personas/ObtenerPersonas.php");
+        String obtenerPersonas = consumo.consumoGET("http://localhost/API-PRQDR-05/API-Personas/ObtenerPersonas.php");
         
         if( obtenerPersonas != null ){
             JsonObject jsonTemp  = gson.fromJson(obtenerPersonas, JsonObject.class);
@@ -426,7 +426,7 @@ public class Vendedores extends javax.swing.JPanel {
     public void mostrarVendedoresSinAsignar(){
         TituloInformativo.setText("USUARIOS CON PARQUEADEROS SIN ASOCIAR:");
         
-        String obtenerPersonas = consumo.consumoGET("http://localhost/APIenPHP/API-Personas/ObtenerPersonasSinAsignar.php");
+        String obtenerPersonas = consumo.consumoGET("http://localhost/API-PRQDR-05/API-Personas/ObtenerPersonasSinAsignar.php");
          
          if( obtenerPersonas != null ){
             JsonObject jsonTemp  = gson.fromJson(obtenerPersonas, JsonObject.class);
@@ -535,7 +535,7 @@ public class Vendedores extends javax.swing.JPanel {
         Map<String, String> queryData = new HashMap<>();
         queryData.put("cedula",cedula);
         
-        String verificar = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/VerificarPersona.php", queryData);
+        String verificar = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/VerificarPersona.php", queryData);
         
         if( verificar != null ){
             

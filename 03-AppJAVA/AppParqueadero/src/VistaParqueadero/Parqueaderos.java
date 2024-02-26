@@ -189,7 +189,7 @@ public class Parqueaderos extends javax.swing.JPanel {
             consultaParking.put("nit",nit);
 
             //ACA DEBE HARCERSE LA CONSULTA PARA BUSCAR LA EMPRESA POR NIT Y MOSTRARLO EN LA TABLA
-            String consultaParqueadero = consumo.consumoPOST("http://localhost/APIenPHP/API-parqueadero/VerificarParqueadero.php", consultaParking);
+            String consultaParqueadero = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-parqueadero/VerificarParqueadero.php", consultaParking);
             
             JsonObject jsonResponse = gson.fromJson(consultaParqueadero, JsonObject.class);
 
@@ -257,7 +257,7 @@ public class Parqueaderos extends javax.swing.JPanel {
 
     public void mostrarParqueaderos(){
         // PETICION PARA OBTENER TODOS LOS PARQUEADEROS 
-        String obtenerParkings = consumo.consumoGET("http://localhost/APIenPHP/API-parqueadero/Obtener.php");
+        String obtenerParkings = consumo.consumoGET("http://localhost/API-PRQDR-05/API-parqueadero/Obtener.php");
         
         if( obtenerParkings != null ){
             JsonObject jsonTemp  = gson.fromJson(obtenerParkings, JsonObject.class);
@@ -326,7 +326,7 @@ public class Parqueaderos extends javax.swing.JPanel {
         Map<String, String> insertData = new HashMap<>();
         insertData.put("nit",nit);
         
-        String consultarParqueadero = consumo.consumoPOST("http://localhost/APIenPHP/API-parqueadero/VerificarParqueadero.php", insertData);
+        String consultarParqueadero = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-parqueadero/VerificarParqueadero.php", insertData);
         
         if( consultarParqueadero != null ){
               
@@ -359,7 +359,7 @@ public class Parqueaderos extends javax.swing.JPanel {
         Map<String, String> insertData = new HashMap<>();
         insertData.put("nit",nit);
         
-        String consultarParqueadero = consumo.consumoPOST("http://localhost/APIenPHP/API-parqueadero/VerificarParqueadero.php", insertData);
+        String consultarParqueadero = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-parqueadero/VerificarParqueadero.php", insertData);
         System.out.println("consumo verificar: " + consultarParqueadero);
         if(consultarParqueadero != null){
             //HACEMOS EL CAMBIO DE VENTANA PARA MOSTRAR EL FORM DONDE EDITAMOS EL PARQUEADERO 

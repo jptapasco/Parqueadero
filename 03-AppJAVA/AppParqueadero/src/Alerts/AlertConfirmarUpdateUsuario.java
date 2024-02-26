@@ -179,7 +179,7 @@ public class AlertConfirmarUpdateUsuario extends javax.swing.JFrame {
         UpdateData.put("email", email);
         UpdateData.put("contrasenia", contrasenia);
 
-        String update = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/Update.php", UpdateData);
+        String update = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/Update.php", UpdateData);
         System.out.println("reponde update user "+update);
         JsonObject responseUpdate = gson.fromJson(update, JsonObject.class);
 

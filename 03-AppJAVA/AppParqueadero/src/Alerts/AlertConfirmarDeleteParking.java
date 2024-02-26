@@ -154,7 +154,7 @@ public class AlertConfirmarDeleteParking extends javax.swing.JFrame {
         Map<String, String> insertData = new HashMap<>();
         insertData.put("nit",nit);
 
-        String delete = consumo.consumoPOST("http://localhost/APIenPHP/API-parqueadero/Delete.php", insertData);
+        String delete = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-parqueadero/Delete.php", insertData);
 
         System.out.println("Lo que llego"+delete);
         JsonObject jsonTemp = gson.fromJson(delete, JsonObject.class);

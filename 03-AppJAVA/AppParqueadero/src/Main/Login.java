@@ -216,7 +216,7 @@ public class Login extends javax.swing.JFrame {
             postData.put("correo", correo);
             postData.put("contrasena", contrasena);
 
-            String iniciarSesion = consumo.consumoPOST("http://localhost/APIenPHP/API-login/acceso.php", postData);
+            String iniciarSesion = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-login/acceso.php", postData);
             System.out.println("RETURN LOGIN: "+iniciarSesion);
 
             if (iniciarSesion != null) {
@@ -236,7 +236,7 @@ public class Login extends javax.swing.JFrame {
                         Map<String, String> obtener = new HashMap<>();
                         obtener.put("id_usuario", idUsuario);
                         
-                        String ObtenParking = consumo.consumoPOST("http://localhost/APIenPHP/API-Ticket/obtenerParqueadero.php" , obtener);
+                        String ObtenParking = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Ticket/obtenerParqueadero.php" , obtener);
                           
                         System.out.println("PASO 2 LOGIN: "+ ObtenParking);
                         
@@ -265,7 +265,7 @@ public class Login extends javax.swing.JFrame {
                                     Map<String, String> queryAsignacion = new HashMap<>();
                                     queryAsignacion.put("id_usuario", idUsuario);
                                     
-                                    String ObtenerAsignacion = consumo.consumoPOST("http://localhost/APIenPHP/API-parqueadero/obtenerIdAsignacion.php", queryAsignacion);
+                                    String ObtenerAsignacion = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-parqueadero/obtenerIdAsignacion.php", queryAsignacion);
                                     
                                     System.out.println("ESTE ES EL ID DEL ASIGNACION "+ObtenerAsignacion);
                                     

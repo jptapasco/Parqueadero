@@ -199,7 +199,7 @@ public class AlertCobrar extends javax.swing.JFrame {
         updateTicket.put("placa", placa);
         updateTicket.put("precio", String.valueOf(nuevoPrecio));
 
-        String respuesta = consumo.consumoPOST("http://localhost/APIenPHP/API-tarifas/actualizarPrecioTicket.php", updateTicket);
+        String respuesta = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-tarifas/actualizarPrecioTicket.php", updateTicket);
 
         if (respuesta != null) {
             // Analiza la respuesta JSON para verificar si la actualización fue exitosa

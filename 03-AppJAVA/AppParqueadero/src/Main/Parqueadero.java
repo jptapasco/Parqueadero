@@ -273,7 +273,7 @@ public final class Parqueadero extends javax.swing.JPanel {
 
             Map<String, String> parametros = new HashMap<>();
             parametros.put("busqueda", busqueda);
-            String obtenerVehiculo = consumo.consumoGET("http://localhost/APIenPHP/API-voce/buscarVehiculo.php", parametros);
+            String obtenerVehiculo = consumo.consumoGET("http://localhost/API-PRQDR-05/API-voce/buscarVehiculo.php", parametros);
             
             if (obtenerVehiculo != null) {
                 JsonObject jsonTemp = gson.fromJson(obtenerVehiculo, JsonObject.class);
@@ -363,7 +363,7 @@ public final class Parqueadero extends javax.swing.JPanel {
         update.put("placa", placa);
         
         
-        String verificarT = consumo.consumoGET("http://localhost/APIenPHP/API-tarifas/VerificarTicket.php", update);
+        String verificarT = consumo.consumoGET("http://localhost/API-PRQDR-05/API-tarifas/VerificarTicket.php", update);
         
         System.out.println("EL TICKET RETORNADO: "+verificarT);
         
@@ -414,7 +414,7 @@ public final class Parqueadero extends javax.swing.JPanel {
     
     public void listaVehiculos(){
         ConsumoApi consumo = new ConsumoApi();
-        String obtenerVehiculos = consumo.consumoGET("http://localhost/APIenPHP/API-voce/obtenerParqueadero.php");
+        String obtenerVehiculos = consumo.consumoGET("http://localhost/API-PRQDR-05/API-voce/obtenerParqueadero.php");
         
         if (obtenerVehiculos != null){
             JsonObject jsonTemp = gson.fromJson(obtenerVehiculos, JsonObject.class);

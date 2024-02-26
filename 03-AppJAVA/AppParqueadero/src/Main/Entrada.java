@@ -190,7 +190,7 @@ public final class Entrada extends javax.swing.JPanel {
             Map<String, String> verificar = new HashMap<>();
             verificar.put("placa", placa);
             
-            String selected = consumo.consumoPOST("http://localhost/APIenPHP/API-tarifas/VerificarPlaca.php", verificar);
+            String selected = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-tarifas/VerificarPlaca.php", verificar);
             
             System.out.println("RESPUESTA ASOCIACION: " + selected);
             
@@ -211,7 +211,7 @@ public final class Entrada extends javax.swing.JPanel {
                 Map<String, String> id_tarifa = new HashMap<>();
                 id_tarifa.put("tipo_vehiculo", vehiculo);
                 
-                String idTarifa = consumo.consumoPOST("http://localhost/APIenPHP/API-tarifas/ObtenerIdTarifa.php", id_tarifa);
+                String idTarifa = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-tarifas/ObtenerIdTarifa.php", id_tarifa);
                 
                 System.out.println("LO QUE ME LLEGO PARA TARIFAS ID: "+idTarifa);
                 // Analizar la respuesta JSON
@@ -230,7 +230,7 @@ public final class Entrada extends javax.swing.JPanel {
                     ticket.put("id_asignacion", id_asignacion);
                     ticket.put("id_tarifa", idTarifaObtenido);
                     
-                    String insertTicket = consumo.consumoPOST("http://localhost/APIenPHP/API-ticket/insertTicket.php", ticket);
+                    String insertTicket = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-ticket/insertTicket.php", ticket);
                     
                     System.out.println("RESPUESTA DEL INSERT DEL TICKET: "+insertTicket);
                     
@@ -254,7 +254,7 @@ public final class Entrada extends javax.swing.JPanel {
                 insertRegistroV.put("placa", placa);
                 insertRegistroV.put("responsable", encargado);
                 
-                String insetRegistrov = consumo.consumoPOST("http://localhost/APIenPHP/API-Ticket/insertRegistro.php", insertRegistroV);
+                String insetRegistrov = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Ticket/insertRegistro.php", insertRegistroV);
                 
                 System.out.println("INSERTANDO NUEVO REGISTRO: "+insetRegistrov);
                 
@@ -267,7 +267,7 @@ public final class Entrada extends javax.swing.JPanel {
                     Map<String, String> id_tarifa = new HashMap<>();
                     id_tarifa.put("tipo_vehiculo", vehiculo);
 
-                    String idTarifa = consumo.consumoPOST("http://localhost/APIenPHP/API-tarifas/ObtenerIdTarifa.php", id_tarifa);
+                    String idTarifa = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-tarifas/ObtenerIdTarifa.php", id_tarifa);
 
                     System.out.println("LO QUE ME LLEGO PARA TARIFAS ID: "+idTarifa);
                     // Analizar la respuesta JSON
@@ -286,7 +286,7 @@ public final class Entrada extends javax.swing.JPanel {
                         ticket.put("id_asignacion", id_asignacion);
                         ticket.put("id_tarifa", idTarifaObtenido);
 
-                        String insertTicket = consumo.consumoPOST("http://localhost/APIenPHP/API-Ticket/insertTicket.php", ticket);
+                        String insertTicket = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Ticket/insertTicket.php", ticket);
 
                         JsonObject response1 = gson.fromJson(insertTicket, JsonObject.class);
 
@@ -327,7 +327,7 @@ public final class Entrada extends javax.swing.JPanel {
         selectVehiculo.addItem("Seleccionar Vehiculo");
 
         // Luego, puedes cargar los parqueaderos reales
-        String selected = consumo.consumoGET("http://localhost/APIenPHP/API-tarifas/Obtener.php");
+        String selected = consumo.consumoGET("http://localhost/API-PRQDR-05/API-tarifas/Obtener.php");
 
         if (selected != null) {
             JsonObject jsonTemp = gson.fromJson(selected, JsonObject.class);

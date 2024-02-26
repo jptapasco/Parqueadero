@@ -177,7 +177,7 @@ public final class Historial extends javax.swing.JPanel {
             ConsumoApi consumo = new ConsumoApi();
             Map<String, String> parametros = new HashMap<>();
             parametros.put("busqueda", busqueda);
-            String obtenerVehiculo = consumo.consumoGET("http://localhost/APIenPHP/buscarVehiculo.php", parametros);
+            String obtenerVehiculo = consumo.consumoGET("http://localhost/API-PRQDR-05/buscarVehiculo.php", parametros);
             
             if (obtenerVehiculo != null) {
                 JsonObject jsonTemp = gson.fromJson(obtenerVehiculo, JsonObject.class);
@@ -227,7 +227,7 @@ public final class Historial extends javax.swing.JPanel {
             ConsumoApi consumo = new ConsumoApi();
             Map<String, String> parametros = new HashMap<>();
             parametros.put("busqueda", busqueda);
-            String obtenerVehiculo = consumo.consumoGET("http://localhost/APIenPHP/buscarVehiculo.php", parametros);
+            String obtenerVehiculo = consumo.consumoGET("http://localhost/API-PRQDR-05/buscarVehiculo.php", parametros);
             
             if (obtenerVehiculo != null) {
                 JsonObject jsonTemp = gson.fromJson(obtenerVehiculo, JsonObject.class);
@@ -323,7 +323,7 @@ public final class Historial extends javax.swing.JPanel {
    
     private void listaHistorial(){
         ConsumoApi consumo = new ConsumoApi();
-        String obtenerHistorial = consumo.consumoGET("http://localhost/APIenPHP/API-voce/obtenerHistorial.php");
+        String obtenerHistorial = consumo.consumoGET("http://localhost/API-PRQDR-05/API-voce/obtenerHistorial.php");
 
         if (obtenerHistorial != null) {
             JsonObject jsonTemp = gson.fromJson(obtenerHistorial, JsonObject.class);

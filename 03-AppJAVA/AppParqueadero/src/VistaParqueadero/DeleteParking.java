@@ -271,7 +271,7 @@ public class DeleteParking extends javax.swing.JFrame {
         insertData.put("nit",nit);
         
         //HACER LA PETICION
-        String obtenerDatos = consumo.consumoPOST("http://localhost/APIenPHP/API-parqueadero/VerificarParqueadero.php", insertData);        
+        String obtenerDatos = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-parqueadero/VerificarParqueadero.php", insertData);        
         if(obtenerDatos != null ){
           
             System.out.println("Datos llegados: "+obtenerDatos);

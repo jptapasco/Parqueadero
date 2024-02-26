@@ -285,7 +285,7 @@ public class AsignarParqueadero extends javax.swing.JFrame {
             insertPersona.put("cedula", cedula);
             insertPersona.put("parqueadero", parqueadero);
 
-            String insert = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/AsociarParqueadero.php", insertPersona);
+            String insert = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/AsociarParqueadero.php", insertPersona);
 
             System.out.println("RESPUESTA ASOCIACION: "+insert);
 
@@ -335,7 +335,7 @@ public class AsignarParqueadero extends javax.swing.JFrame {
             Map<String, String> queryPerson = new HashMap<>();
             queryPerson.put("cedula", cedula);
 
-            String query = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/ConsultarPersona.php", queryPerson);
+            String query = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/ConsultarPersona.php", queryPerson);
 
             System.out.println("RESPUESTA " + query);
 
@@ -377,7 +377,7 @@ public class AsignarParqueadero extends javax.swing.JFrame {
         selectParking.addItem("Seleccionar Parqueadero");
 
         // Luego, puedes cargar los parqueaderos reales
-        String selected = consumo.consumoGET("http://localhost/APIenPHP/API-parqueadero/Obtener.php");
+        String selected = consumo.consumoGET("http://localhost/API-PRQDR-05/API-parqueadero/Obtener.php");
 
         if (selected != null) {
             JsonObject jsonTemp = gson.fromJson(selected, JsonObject.class);

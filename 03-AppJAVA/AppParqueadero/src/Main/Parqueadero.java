@@ -277,6 +277,7 @@ public final class Parqueadero extends javax.swing.JPanel {
             
             if (obtenerVehiculo != null) {
                 JsonObject jsonTemp = gson.fromJson(obtenerVehiculo, JsonObject.class);
+                System.out.println("Buscar: "+jsonTemp);
                 JsonArray vehiculo = jsonTemp.getAsJsonArray("registros");
                 modelo.setRowCount(0);
 

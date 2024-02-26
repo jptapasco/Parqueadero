@@ -54,14 +54,37 @@
         android:inputType="textPassword"
         android:textSize="25sp" />
 
-    <Button
-        android:layout_width="146dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:background="@color/green"
-        android:onClick="validarUsuario"
-        android:text="Ingresar"
-        android:textSize="25sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@color/blueTarget"
+            android:onClick="btnInvitado"
+            android:textStyle="bold"
+            android:text="INVITADO"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+        <Space
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@color/green"
+            android:onClick="validarUsuario"
+            android:text="Ingresar"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.parqueadero.administrador;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,16 +32,26 @@ public class DeleteParqueadero extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String nit;
     Button btnCancelarDelete;
+    Button btnEliminarPk;
     EditText campoNitDelete;
     EditText campoNombreDelete;
     EditText campoDireccionDelete;
     EditText campoTelefonoDelete;
     Config dataConfig;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_parqueadero);
-        btnCancelarDelete.findViewById(R.id.btnCancelarDelete);
+        btnCancelarDelete = findViewById(R.id.btnCancelarDelete);
+        btnEliminarPk = findViewById(R.id.btnEliminarPk);
+
+        btnEliminarPk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                apiDeletePk();
+            }
+        });
 
         btnCancelarDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +82,7 @@ public class DeleteParqueadero extends AppCompatActivity {
         campoTelefonoDelete.setText(sharedPreferences.getString("telefono",""));
     }
 
-    public void btnEliminarPk(View view){
+    public void apiDeletePk(){
         String nit = sharedPreferences.getString("nit","");
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -107,6 +118,7 @@ public class DeleteParqueadero extends AppCompatActivity {
         };
         queue.add(consulta);
     }
+
 
     private void mostrarAlerta() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -38,7 +38,6 @@
             />
         <EditText
             android:id="@+id/campoCedulaEdit"
-            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -97,6 +96,7 @@
             android:id="@+id/campoEmailEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
         <TextView
@@ -111,6 +111,7 @@
             android:id="@+id/campoPasswordEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
 
@@ -138,12 +139,12 @@
                 android:layout_height="match_parent" />
 
             <Button
+                android:id="@+id/btnEditarVendedor"
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:onClick="btnEditarVendedor"
                 android:background="@color/green"
                 android:text="Editar"
                 android:textColor="#FFFFFF"

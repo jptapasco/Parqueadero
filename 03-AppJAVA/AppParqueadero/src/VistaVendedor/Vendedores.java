@@ -542,7 +542,6 @@ public class Vendedores extends javax.swing.JPanel {
             this.main.dispose();
             
               
-            //HACEMOS EL CAMBIO DE VENTANA PARA MOSTRAR EL FORM DONDE EDITAMOS EL PARQUEADERO 
             AlertConfirmarDesligar mostrarFrame = new AlertConfirmarDesligar(cedula,this);
             mostrarFrame.setVisible(true);
         }

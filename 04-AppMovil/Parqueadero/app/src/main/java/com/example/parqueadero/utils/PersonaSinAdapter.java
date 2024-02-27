@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.AsociarVendedor;
 import com.example.parqueadero.administrador.InfoVendedores;
 import com.example.parqueadero.administrador.UpdateVendedor;
 
@@ -102,6 +103,15 @@ public class PersonaSinAdapter extends RecyclerView.Adapter<PersonaSinAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     System.out.println("Btn Asignar Vendedores");
+                    SharedPreferences sharedPreferences = contexto.getSharedPreferences("infoAsignar",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("cedula", persona.documento);
+                    editor.putString("nombre", persona.nombre);
+                    editor.putString("apellido", persona.apellido);
+                    editor.putString("telefono", persona.telefono);
+                    editor.apply();
+                    Intent intencion = new Intent(contexto, AsociarVendedor.class);
+                    contexto.startActivity(intencion);
                 }
             });
         }

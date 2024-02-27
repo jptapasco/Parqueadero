@@ -3,7 +3,10 @@ package com.example.parqueadero.vendedor;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +16,10 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,8 +38,10 @@ import org.json.JSONObject;
 public class Historial extends AppCompatActivity {
     Config dataConfig;
     List<DetalleHistorial> listaDetalleHistorial;
+    SharedPreferences sharedPreferences;
     EditText campo_buscar_placaH;
     Button btnBuscar;
+    String id_asignacion;
     RecyclerView recyclerView;
     DetalleHistorialAdapter adapter;
     @Override
@@ -47,6 +55,9 @@ public class Historial extends AppCompatActivity {
         ImageView btnTarifa = findViewById(R.id.btnTarifasV);
         ImageView btnSalir = findViewById(R.id.btn_salirV);
 
+        sharedPreferences = getSharedPreferences("id_a", Context.MODE_PRIVATE);
+        id_asignacion = sharedPreferences.getString("id_asignacion", "");
+        System.out.println("id asignacion: "+id_asignacion);
         campo_buscar_placaH = findViewById(R.id.campo_buscar_placa);
         btnBuscar = findViewById(R.id.btnBuscarHistorial);
 
@@ -120,7 +131,7 @@ public class Historial extends AppCompatActivity {
     public void apiObtenerHistorial(){
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-voce/obtenerHistorial.php");
-        StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -128,7 +139,7 @@ public class Historial extends AppCompatActivity {
                     System.out.println("Respuesta api Historial: " + respuesta);
                     cargarListaHistorial(respuesta.getJSONArray("registros"));
                 } catch (JSONException e) {
-                    System.out.println("El servidor GET responde con error");
+                    System.out.println("El servidor POST responde con error");
                     System.out.println(e.getMessage());
                     Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -136,10 +147,16 @@ public class Historial extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("JOA Mani el servidor GET responde con un error");
+                System.out.println("JOA Mani el servidor POST responde con un error");
                 System.out.println(error.getMessage());
             }
-        });
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_asignacion",id_asignacion);
+                return params;
+            }
+        };
         queue.add(solicitud);
     }
 

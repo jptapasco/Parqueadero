@@ -37,7 +37,7 @@ public class MainVendedor extends javax.swing.JFrame {
         
         panelPrincipal.removeAll();
 
-        Parqueadero mostrarPanel = new Parqueadero(this, nit, nombre, direccion, telefono, user);
+        Parqueadero mostrarPanel = new Parqueadero(this, nit, nombre, direccion, telefono, user,id_asignacion);
 
         mostrarPanel.setSize(panelPrincipal.getSize() );
         panelPrincipal.add( mostrarPanel );
@@ -268,7 +268,7 @@ public class MainVendedor extends javax.swing.JFrame {
         
         panelPrincipal.removeAll();
 
-        Parqueadero mostrarPanel = new Parqueadero(this, nit, nombre, direccion, telefono, user);
+        Parqueadero mostrarPanel = new Parqueadero(this, nit, nombre, direccion, telefono, user, id_asignacion);
 
         mostrarPanel.setSize(panelPrincipal.getSize() );
         panelPrincipal.add( mostrarPanel );
@@ -298,7 +298,7 @@ public class MainVendedor extends javax.swing.JFrame {
         
         panelPrincipal.removeAll();
         
-        Historial mostrarPanel = new Historial(this);
+        Historial mostrarPanel = new Historial(this,id_asignacion);
 
         mostrarPanel.setSize(panelPrincipal.getSize() );
         panelPrincipal.add( mostrarPanel);

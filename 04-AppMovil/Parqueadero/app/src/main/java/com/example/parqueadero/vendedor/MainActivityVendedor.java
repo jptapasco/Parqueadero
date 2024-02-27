@@ -103,6 +103,10 @@ public class MainActivityVendedor extends AppCompatActivity {
         btnHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("id_a", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("id_asignacion", id_asignacion);
+                editor.apply();
                 Intent intencion = new Intent(getApplicationContext(), Historial.class);
                 startActivity(intencion);
             }
@@ -147,7 +151,7 @@ public class MainActivityVendedor extends AppCompatActivity {
     public void apiListaVehiculos(){
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-voce/obtenerParqueadero.php");
-        StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -155,7 +159,7 @@ public class MainActivityVendedor extends AppCompatActivity {
                     System.out.println("Respuesta api Vehiculos EN: " + respuesta);
                     cargarListaVehiculos(respuesta.getJSONArray("registros"));
                 } catch (JSONException e) {
-                    System.out.println("El servidor GET responde con error");
+                    System.out.println("El servidor POST responde con error");
                     System.out.println(e.getMessage());
                     Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -163,10 +167,16 @@ public class MainActivityVendedor extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("JOA Mani el servidor GET responde con un error");
+                System.out.println("JOA Mani el servidor POST responde con un error");
                 System.out.println(error.getMessage());
             }
-        });
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_asignacion", id_asignacion);
+                return params;
+            }
+        };
         queue.add(solicitud);
     }
 

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".administrador.CrearVendedor">
+    tools:context=".administrador.AsociarVendedor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,13 +18,13 @@
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/crear_persona"/>
+            android:src="@drawable/barrera"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:text="Creando vendedor"
+            android:text="Asociando vendedor"
             android:textColor="@color/black"
             android:textSize="35sp"
             android:textStyle="bold" />
@@ -37,9 +37,10 @@
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoCedula"
+            android:id="@+id/campoCedulaA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
         <TextView
@@ -51,9 +52,10 @@
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoNombre"
+            android:id="@+id/campoNombreA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
         <TextView
@@ -65,9 +67,10 @@
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoApellido"
+            android:id="@+id/campoApellidoA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
         <TextView
@@ -79,35 +82,8 @@
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <EditText
-            android:id="@+id/campoEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Constraseña"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <EditText
-            android:id="@+id/campoPassword"
+            android:id="@+id/campoTelefonoA"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -121,7 +97,7 @@
             android:textSize="30dp"
             />
         <Spinner
-            android:id="@+id/spinnerParqueadero"
+            android:id="@+id/spinnerAsociarParqueadero"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="20sp"
@@ -129,37 +105,36 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnSalir"
+                android:id="@+id/btnCancelarAso"
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@color/red"
-                android:text="Salir"
+                android:text="Cancelar"
                 android:textColor="#FFFFFF"
                 android:clickable="true"
                 android:textSize="25sp" />
 
-            <!-- Agrega un espacio entre los botones -->
             <Space
                 android:layout_width="16dp"
                 android:layout_height="match_parent" />
 
             <Button
-                android:id="@+id/btnCreateVendedor"
+                android:id="@+id/btnAsociarVendedor"
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:background="@color/green"
-                android:text="Crear"
+                android:text="Asociar"
                 android:textColor="#FFFFFF"
                 android:textSize="25sp" />
         </LinearLayout>

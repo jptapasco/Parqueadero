@@ -121,7 +121,6 @@ public class CrearVendedor extends AppCompatActivity {
                             JSONObject dataParking = datos.getJSONObject(i);
                             String name = dataParking.getString("nombre");
                             System.out.println("nombres PK: "+name);
-                            // Agrega el nombre del parqueadero a la lista
                             nombresParqueaderos.add(name);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);

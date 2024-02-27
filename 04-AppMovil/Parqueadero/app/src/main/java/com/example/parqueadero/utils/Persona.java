@@ -8,10 +8,11 @@ public class Persona {
     String email;
     String password;
 
-    public Persona(String documento, String nombre, String apellido) {
+    public Persona(String documento, String nombre, String apellido,String telefono) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.telefono = telefono;
     }
 
     public String getDocumento() {

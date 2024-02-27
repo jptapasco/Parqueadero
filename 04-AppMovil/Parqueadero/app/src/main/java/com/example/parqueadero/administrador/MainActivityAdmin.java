@@ -137,12 +137,12 @@ public class MainActivityAdmin extends AppCompatActivity {
         for (int i = 0; i < datos.length(); i++) {
             try {
                 JSONObject parqueadero = datos.getJSONObject(i);
-                listaParqueadero.add(new Parqueadero(parqueadero.getString("nit"), parqueadero.getString("nombre"), parqueadero.getString("direccion")));
+                listaParqueadero.add(new Parqueadero(parqueadero.getString("nit"), parqueadero.getString("nombre"), parqueadero.getString("direccion"),parqueadero.getString("telefono")));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }
-        adapter = new ParqueaderoAdapter(listaParqueadero);
+        adapter = new ParqueaderoAdapter(listaParqueadero,getApplicationContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
     }

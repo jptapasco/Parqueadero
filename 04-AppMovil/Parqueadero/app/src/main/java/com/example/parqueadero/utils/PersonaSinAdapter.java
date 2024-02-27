@@ -1,6 +1,8 @@
 package com.example.parqueadero.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.InfoVendedores;
+import com.example.parqueadero.administrador.UpdateVendedor;
 
 import java.util.List;
 
@@ -68,6 +72,15 @@ public class PersonaSinAdapter extends RecyclerView.Adapter<PersonaSinAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     System.out.println("Btn info Vendedores");
+                    SharedPreferences sharedPreferences = contexto.getSharedPreferences("info",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("cedula", persona.documento);
+                    editor.putString("nombre", persona.nombre);
+                    editor.putString("apellido", persona.apellido);
+                    editor.putString("telefono", persona.telefono);
+                    editor.apply();
+                    Intent intencion = new Intent(contexto, InfoVendedores.class);
+                    contexto.startActivity(intencion);
                 }
             });
 
@@ -75,6 +88,13 @@ public class PersonaSinAdapter extends RecyclerView.Adapter<PersonaSinAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     System.out.println("Btn Editar Vendedores");
+                    System.out.println("Btn Editar Vendedores");
+                    SharedPreferences sharedPreferences = contexto.getSharedPreferences("cc",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("cedula", persona.documento);
+                    editor.apply();
+                    Intent intencion = new Intent(contexto, UpdateVendedor.class);
+                    contexto.startActivity(intencion);
                 }
             });
 

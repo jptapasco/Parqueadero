@@ -15,10 +15,11 @@ public class Parqueadero {
         this.telefono = telefono;
     }
 
-    public Parqueadero(String nit, String nombre, String direccion) {
+    public Parqueadero(String nit, String nombre, String direccion,String telefono) {
         this.nit = nit;
         this.nombre = nombre;
         this.direccion = direccion;
+        this.telefono = telefono;
     }
 
     public String getNit() {

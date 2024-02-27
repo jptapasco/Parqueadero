@@ -24,7 +24,6 @@ import com.example.parqueadero.utils.Config;
 import com.example.parqueadero.utils.DetalleHistorial;
 import com.example.parqueadero.utils.DetalleHistorialAdapter;
 import com.example.parqueadero.utils.VehiculosEnParqueaderoAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

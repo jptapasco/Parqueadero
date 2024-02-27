@@ -149,7 +149,7 @@ public class Vendedores extends AppCompatActivity {
         for (int i = 0; i < datos.length(); i++) {
             try {
                 JSONObject vendedor = datos.getJSONObject(i);
-                listaPersonaAsignada.add(new Persona(vendedor.getString("cedula"), vendedor.getString("nombre"), vendedor.getString("apellidos")));
+                listaPersonaAsignada.add(new Persona(vendedor.getString("cedula"), vendedor.getString("nombre"), vendedor.getString("apellidos"), vendedor.getString("celular")));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

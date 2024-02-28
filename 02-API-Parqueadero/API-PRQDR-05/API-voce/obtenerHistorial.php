@@ -5,16 +5,6 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 include '../Conexion.php';
 
-<<<<<<< HEAD
-    //$consulta = $base_de_datos->query("SELECT * FROM ticket"); 
-$consulta = $base_de_datos->query("SELECT t.id, t.placa, t.create_entrada, t.salida, tar.tipo_vehiculo, tar.Tarifa, rv.responsable
-    FROM ticket t
-    LEFT JOIN tarifas tar ON t.id_tarifa = tar.id
-    LEFT JOIN registro_vehiculos rv ON t.placa = rv.placa WHERE t.salida IS NOT NULL");
-$datos = $consulta->fetchAll();
-
-$respuesta['registros'] = $datos;
-=======
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_asignacion'])) {
     $id_asignacion = $_POST['id_asignacion'];
 
@@ -38,6 +28,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_asignacion'])) {
     ];
 }
 
->>>>>>> dev01
 echo json_encode($respuesta);
-?>

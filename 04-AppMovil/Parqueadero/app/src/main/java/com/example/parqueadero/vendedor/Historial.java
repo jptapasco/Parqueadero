@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,12 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.android.volley.Request;
@@ -42,8 +46,10 @@ public class Historial extends AppCompatActivity {
     EditText campo_buscar_placaH;
     Button btnBuscar;
     String id_asignacion;
+    TextView textFecha;
     RecyclerView recyclerView;
     DetalleHistorialAdapter adapter;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +64,17 @@ public class Historial extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("id_a", Context.MODE_PRIVATE);
         id_asignacion = sharedPreferences.getString("id_asignacion", "");
         System.out.println("id asignacion: "+id_asignacion);
+
+        String fecha = obtenerFechaHoraActual();
+        System.out.println("fecha"+ fecha);
+
         campo_buscar_placaH = findViewById(R.id.campo_buscar_placa);
         btnBuscar = findViewById(R.id.btnBuscarHistorial);
+
+        textFecha = findViewById(R.id.textFechaH);
+        textFecha.setText(fecha);
+
+
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +141,18 @@ public class Historial extends AppCompatActivity {
         } catch (Exception e) {
             return "";
         }
+    }
+
+
+    public String obtenerFechaHoraActual() {
+        // Obtener una instancia de Calendar
+        Calendar calendar = Calendar.getInstance();
+
+        // Obtener la fecha y hora actual en formato de 12 horas
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.getDefault());
+        String fechaHoraActual = sdf.format(calendar.getTime());
+
+        return fechaHoraActual;
     }
 
     public void apiObtenerHistorial(){

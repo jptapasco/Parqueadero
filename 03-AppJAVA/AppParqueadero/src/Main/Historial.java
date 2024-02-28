@@ -24,13 +24,15 @@ public final class Historial extends javax.swing.JPanel {
     public MainVendedor main;
     private ConsumoApi consumo;
     private final Gson gson;
+    String id_asignacion;
     DefaultTableModel modelo;
     
     
     
-    public Historial(MainVendedor main) {
+    public Historial(MainVendedor main,String id_asignacion) {
         this.main = main;
         consumo = new ConsumoApi();
+        this.id_asignacion = id_asignacion;
         gson = new Gson();
         initComponents();
         initAlternComponets();
@@ -323,7 +325,10 @@ public final class Historial extends javax.swing.JPanel {
    
     private void listaHistorial(){
         ConsumoApi consumo = new ConsumoApi();
-        String obtenerHistorial = consumo.consumoGET("http://localhost/API-PRQDR-05/API-voce/obtenerHistorial.php");
+        Map<String, String> obtener = new HashMap<>();
+        obtener.put("id_asignacion",id_asignacion);
+        System.out.println("id_asignacion: "+id_asignacion);
+        String obtenerHistorial = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-voce/obtenerHistorial.php",obtener);
 
         if (obtenerHistorial != null) {
             JsonObject jsonTemp = gson.fromJson(obtenerHistorial, JsonObject.class);

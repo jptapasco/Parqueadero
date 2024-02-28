@@ -318,7 +318,7 @@ public class CreateSeller extends javax.swing.JFrame {
             Map<String, String> comprobarPersona = new HashMap<>();
             comprobarPersona.put("cedula", cedula);
 
-            String verificarPersona = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/VerificarPersona.php", comprobarPersona);
+            String verificarPersona = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/VerificarPersona.php", comprobarPersona);
 
             System.out.println("LA VERIFICACION "+verificarPersona);
 
@@ -342,7 +342,7 @@ public class CreateSeller extends javax.swing.JFrame {
                 insertPersona.put("email", email);
                 insertPersona.put("contrasenia", contrasenia);
 
-                String insert = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/insert.php", insertPersona);
+                String insert = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/insert.php", insertPersona);
 
                 JsonObject respuestaInsert = gson.fromJson(insert, JsonObject.class);
 
@@ -401,7 +401,7 @@ public class CreateSeller extends javax.swing.JFrame {
         selectParking.addItem("Seleccionar Parqueadero");
 
         // Luego, puedes cargar los parqueaderos reales
-        String selected = consumo.consumoGET("http://localhost/APIenPHP/API-parqueadero/Obtener.php");
+        String selected = consumo.consumoGET("http://localhost/API-PRQDR-05/API-parqueadero/Obtener.php");
 
         if (selected != null) {
             JsonObject jsonTemp = gson.fromJson(selected, JsonObject.class);

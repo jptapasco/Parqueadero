@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,14 +28,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivityAdmin extends AppCompatActivity {
     Button btnParqueadero;
     Button btnVendedor;
+    Button btnBuscarParqueadero;
     Button btnSalir;
     Config dataConfig;
     Button btnCrearParqueadero;
+    EditText campo_buscar_parqueadero;
     List<Parqueadero> listaParqueadero;
     RecyclerView recyclerView;
     ParqueaderoAdapter adapter;
@@ -49,11 +54,26 @@ public class MainActivityAdmin extends AppCompatActivity {
         btnSalir = findViewById(R.id.btn_salir);
         btnCrearParqueadero = findViewById(R.id.btnCrearParqueadero);
         recyclerView = findViewById(R.id.recyclerListaParqueadero);
+        campo_buscar_parqueadero = findViewById(R.id.campo_buscar_parqueadero);
+        btnBuscarParqueadero = findViewById(R.id.btnBuscarParqueadero);
 
         dataConfig = new Config(getApplicationContext());
         listaParqueadero = new ArrayList<>();
         btnParqueadero.setEnabled(false);
 
+
+        btnBuscarParqueadero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nitBusqueda = campo_buscar_parqueadero.getText().toString();
+
+                if (!nitBusqueda.equals("") ){
+                    buscadorParqueadero(nitBusqueda);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ingresa el nit", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         btnVendedor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,13 +137,47 @@ public class MainActivityAdmin extends AppCompatActivity {
         for (int i = 0; i < datos.length(); i++) {
             try {
                 JSONObject parqueadero = datos.getJSONObject(i);
-                listaParqueadero.add(new Parqueadero(parqueadero.getString("nit"), parqueadero.getString("nombre"), parqueadero.getString("direccion")));
+                listaParqueadero.add(new Parqueadero(parqueadero.getString("nit"), parqueadero.getString("nombre"), parqueadero.getString("direccion"),parqueadero.getString("telefono")));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }
-        adapter = new ParqueaderoAdapter(listaParqueadero);
+        adapter = new ParqueaderoAdapter(listaParqueadero,getApplicationContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    public void buscadorParqueadero(String nit){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-parqueadero/VerificarParqueadero.php");
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject datos = new JSONObject(response);
+                    boolean status = datos.getBoolean("status");
+                    if (status){
+                        cargarListaParqueadero(datos.getJSONArray("registros"));
+                    }else {
+                        Toast.makeText(getApplicationContext(), "No Se encontraron Resultados", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("Joa mani el servidor POST responde con un error:");
+                System.out.println(error.getMessage());
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("nit", nit);
+                return params;
+            }
+        };
+        queue.add(solicitud);
     }
 }

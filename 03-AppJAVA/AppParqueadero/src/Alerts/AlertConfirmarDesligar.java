@@ -155,7 +155,7 @@ public class AlertConfirmarDesligar extends javax.swing.JFrame {
         Map<String, String> queryDesligamiento = new HashMap<>();
         queryDesligamiento.put("cedula",cedula);
 
-        String desligar = consumo.consumoPOST("http://localhost/APIenPHP/API-Personas/Desligar.php", queryDesligamiento);
+        String desligar = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-Personas/Desligar.php", queryDesligamiento);
 
         System.out.println("Lo que llego"+desligar);
 

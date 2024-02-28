@@ -198,7 +198,7 @@ public final class Tarifas extends javax.swing.JPanel {
         Map<String, String> postData = new HashMap<>();
         postData.put("tipo_vehiculo", tipoVehiculo);
         postData.put("tarifa", nuevoValor);
-        String cambiarTarifa = consumo.consumoPOST("http://localhost/APIenPHP/API-tarifas/UpdateTarifa.php", postData);
+        String cambiarTarifa = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-tarifas/UpdateTarifa.php", postData);
         System.out.println("raspuesta api: "+ cambiarTarifa);
         if (cambiarTarifa != null) {
             JsonObject jsonTemp = gson.fromJson(cambiarTarifa, JsonObject.class);
@@ -226,7 +226,7 @@ public final class Tarifas extends javax.swing.JPanel {
 
         String opcionSelected = (String) boxVehiculos.getSelectedItem();
         ConsumoApi consumo = new ConsumoApi();
-        String obtenerT = consumo.consumoGET("http://localhost/APIenPHP/API-tarifas/obtenerTarifa.php?tipo_vehiculo=" + opcionSelected);
+        String obtenerT = consumo.consumoGET("http://localhost/API-PRQDR-05/API-tarifas/obtenerTarifa.php?tipo_vehiculo=" + opcionSelected);
 
         // Parsear la respuesta JSON
         JsonParser parser = new JsonParser();
@@ -263,7 +263,7 @@ public final class Tarifas extends javax.swing.JPanel {
     
     private void listaTarifa(){
         ConsumoApi consumo = new ConsumoApi();
-        String obtenerTarifas = consumo.consumoGET("http://localhost/APIenPHP/API-tarifas/Obtener.php");
+        String obtenerTarifas = consumo.consumoGET("http://localhost/API-PRQDR-05/API-tarifas/Obtener.php");
 
         if (obtenerTarifas != null) {
             JsonObject jsonTemp = gson.fromJson(obtenerTarifas, JsonObject.class);

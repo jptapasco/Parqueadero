@@ -61,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void btnInvitado(View vista){
+        Intent intencion = new Intent(getApplicationContext(), MainCasual.class);
+        startActivity(intencion);
+        finish();
+    }
+
     public void apiValidarUsuario(String correo, String password) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-login/acceso.php");

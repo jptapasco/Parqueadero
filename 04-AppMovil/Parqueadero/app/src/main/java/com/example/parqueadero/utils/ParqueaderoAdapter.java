@@ -1,24 +1,31 @@
 package com.example.parqueadero.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
+import android.content.Context;
+import android.content.SharedPreferences.Editor;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.DeleteParqueadero;
+import com.example.parqueadero.administrador.UpdateParqueadero;
+import com.example.parqueadero.vendedor.Entrada;
 
 import java.util.List;
 
 public class ParqueaderoAdapter extends RecyclerView.Adapter<ParqueaderoAdapter.ViewHolder> {
     private List<Parqueadero> listaParqueadero;
+    Context contexto;
 
-    public ParqueaderoAdapter(List<Parqueadero> listaParqueadero) {
+    public ParqueaderoAdapter(List<Parqueadero> listaParqueadero,Context contexto) {
         this.listaParqueadero = listaParqueadero;
+        this.contexto = contexto;
     }
 
     @NonNull
@@ -67,6 +74,15 @@ public class ParqueaderoAdapter extends RecyclerView.Adapter<ParqueaderoAdapter.
                 @Override
                 public void onClick(View v) {
                     System.out.println("Btn Editar");
+                    SharedPreferences sharedPreferences = contexto.getSharedPreferences("datos_edit",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("nit", resumen.nit);
+                    editor.putString("nombre", resumen.nombre);
+                    editor.putString("direccion", resumen.direccion);
+                    editor.putString("telefono", resumen.telefono);
+                    editor.apply();
+                    Intent intencion = new Intent(contexto, UpdateParqueadero.class);
+                    contexto.startActivity(intencion);
                 }
             });
 
@@ -74,6 +90,15 @@ public class ParqueaderoAdapter extends RecyclerView.Adapter<ParqueaderoAdapter.
                 @Override
                 public void onClick(View v) {
                     System.out.println("Btn Eliminar");
+                    SharedPreferences sharedPreferences = contexto.getSharedPreferences("datos_delete",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("nit", resumen.nit);
+                    editor.putString("nombre", resumen.nombre);
+                    editor.putString("direccion", resumen.direccion);
+                    editor.putString("telefono", resumen.telefono);
+                    editor.apply();
+                    Intent intencion = new Intent(contexto, DeleteParqueadero.class);
+                    contexto.startActivity(intencion);
                 }
             });
         }

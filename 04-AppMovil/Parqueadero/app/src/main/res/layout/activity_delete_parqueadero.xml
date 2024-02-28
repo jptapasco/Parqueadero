@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".administrador.CrearVendedor">
+    tools:context=".administrador.DeleteParqueadero">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,30 +14,31 @@
         android:padding="20dp"
         >
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center"
-            android:src="@drawable/crear_persona"/>
+            android:src="@drawable/tractor"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:text="Creando vendedor"
+            android:text="Eliminar Parqueadero"
             android:textColor="@color/black"
             android:textSize="35sp"
             android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cedula"
+            android:text="NIT"
             android:textColor="@color/green"
             android:textStyle="bold"
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoCedula"
+            android:id="@+id/campoNitDelete"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -51,24 +52,26 @@
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoNombre"
+            android:id="@+id/campoNombreDelete"
             android:layout_width="match_parent"
+            android:enabled="false"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Apellido"
+            android:text="Direccion"
             android:textColor="@color/green"
             android:textStyle="bold"
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoApellido"
+            android:id="@+id/campoDireccionDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:enabled="false"
             android:textSize="25sp" />
         <TextView
             android:layout_width="match_parent"
@@ -79,71 +82,28 @@
             android:textSize="30dp"
             />
         <EditText
-            android:id="@+id/campoTelefono"
+            android:id="@+id/campoTelefonoDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:enabled="false"
+            android:layout_marginBottom="20dp"
             android:textSize="25sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <EditText
-            android:id="@+id/campoEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Constraseña"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <EditText
-            android:id="@+id/campoPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Parqueadero"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <Spinner
-            android:id="@+id/spinnerParqueadero"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="20sp"
-            android:layout_centerInParent="true"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnSalir"
+                android:id="@+id/btnCancelarDelete"
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/red"
-                android:text="Salir"
-                android:textColor="#FFFFFF"
                 android:clickable="true"
+                android:background="@color/green"
+                android:text="Cancelar"
+                android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <!-- Agrega un espacio entre los botones -->
@@ -152,14 +112,14 @@
                 android:layout_height="match_parent" />
 
             <Button
-                android:id="@+id/btnCreateVendedor"
+                android:id="@+id/btnEliminarPk"
                 android:layout_width="146dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:background="@color/green"
-                android:text="Crear"
+                android:background="@color/red"
+                android:text="Eliminar"
                 android:textColor="#FFFFFF"
                 android:textSize="25sp" />
         </LinearLayout>

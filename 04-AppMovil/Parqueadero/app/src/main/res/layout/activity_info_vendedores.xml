@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".administrador.CrearVendedor">
+    tools:context=".administrador.InfoVendedores">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,9 +14,9 @@
         android:padding="20dp"
         >
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center"
             android:src="@drawable/crear_persona"/>
         <TextView
@@ -24,20 +24,21 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:text="Creando vendedor"
+            android:text="Info Vendedores"
             android:textColor="@color/black"
             android:textSize="35sp"
             android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cedula"
+            android:text="C.C"
             android:textColor="@color/green"
             android:textStyle="bold"
             android:textSize="30dp"
             />
         <EditText
             android:id="@+id/campoCedula"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -98,70 +99,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textSize="25sp" />
-        <TextView
+
+        <Button
+            android:id="@+id/btnVolver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Constraseña"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <EditText
-            android:id="@+id/campoPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:background="@color/green"
+            android:text="Volver"
+            android:textColor="@color/white"
             android:textSize="25sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Parqueadero"
-            android:textColor="@color/green"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            />
-        <Spinner
-            android:id="@+id/spinnerParqueadero"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="20sp"
-            android:layout_centerInParent="true"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnSalir"
-                android:layout_width="146dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@color/red"
-                android:text="Salir"
-                android:textColor="#FFFFFF"
-                android:clickable="true"
-                android:textSize="25sp" />
-
-            <!-- Agrega un espacio entre los botones -->
-            <Space
-                android:layout_width="16dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/btnCreateVendedor"
-                android:layout_width="146dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:background="@color/green"
-                android:text="Crear"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

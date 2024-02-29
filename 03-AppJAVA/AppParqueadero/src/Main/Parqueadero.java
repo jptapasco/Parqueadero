@@ -405,9 +405,12 @@ public final class Parqueadero extends javax.swing.JPanel {
         try {
             Date fechaIngreso = format.parse(ingreso);
             Date fechaActual = new Date();
+            System.out.println("fecha Ingreso: "+fechaIngreso);
+            System.out.println("fecha actual: "+fechaActual);
             long diferencia = fechaActual.getTime() - fechaIngreso.getTime();
             long horas = diferencia / (60 * 60 * 1000);
             long minutos = (diferencia % (60 * 60 * 1000)) / (60 * 1000);
+            System.out.println(horas + "h " + minutos + "m");
             return horas + "h " + minutos + "m";
         } catch (Exception e) {
             System.err.println("Error al calcular tiempo: " + e.getMessage());

@@ -1,6 +1,8 @@
 package com.example.parqueadero.vendedor;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.text.SimpleDateFormat;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.parqueadero.MainActivity;
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.MainActivityAdmin;
 import com.example.parqueadero.utils.Config;
 import com.example.parqueadero.utils.DetalleHistorial;
 import com.example.parqueadero.utils.DetalleHistorialAdapter;
@@ -29,11 +40,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class MainActivityVendedor extends AppCompatActivity {
 
@@ -44,6 +60,7 @@ public class MainActivityVendedor extends AppCompatActivity {
     TextView etqNvendedores;
     EditText campo_buscar_auto;
     Button btnBuscarAuto;
+    Button btnSalidaPk;
     SharedPreferences sharedPreferences;
     String id_asignacion;
     RecyclerView recyclerView;
@@ -62,6 +79,10 @@ public class MainActivityVendedor extends AppCompatActivity {
         etqNvendedores = findViewById(R.id.etqVendedores);
         campo_buscar_auto = findViewById(R.id.campo_buscar_auto);
         btnBuscarAuto = findViewById(R.id.btnBuscarAuto);
+        btnSalidaPk = findViewById(R.id.btnSalidaPk);
+
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Bogota"));
+
 
         recyclerView = findViewById(R.id.recyclerListaVehiculos);
         dataConfig = new Config(getApplicationContext());
@@ -180,21 +201,28 @@ public class MainActivityVendedor extends AppCompatActivity {
         queue.add(solicitud);
     }
 
-    //FUNCIÓN CALCULAR TIEMPO
     private String calcularTiempo(String ingreso) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // Establecer la zona horaria a America/Bogota
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Bogota"));
+
         try {
             Date fechaIngreso = format.parse(ingreso);
             Date fechaActual = new Date();
+            System.out.println("fecha Ingreso: " + fechaIngreso);
+            System.out.println("fecha actual: "+fechaActual);
             long diferencia = fechaActual.getTime() - fechaIngreso.getTime();
             long horas = diferencia / (60 * 60 * 1000);
             long minutos = (diferencia % (60 * 60 * 1000)) / (60 * 1000);
+            System.out.println(horas + "h " + minutos + "m");
             return horas + "h " + minutos + "m";
         } catch (Exception e) {
             System.err.println("Error al calcular tiempo: " + e.getMessage());
             return "";
         }
     }
+
 
     public void cargarListaVehiculos(JSONArray datos) {
         listaAutosEnPk = new ArrayList<>();
@@ -203,6 +231,7 @@ public class MainActivityVendedor extends AppCompatActivity {
                 JSONObject historial = datos.getJSONObject(i);
                 String entrada = historial.getString("create_entrada");
                 String tiempo = calcularTiempo(entrada);
+                System.out.println("Tiempo en PK: "+tiempo);
                 listaAutosEnPk.add(new DetalleHistorial(historial.getString("id"),historial.getString("tipo_vehiculo"),historial.getString("placa"), historial.getString("responsable"), historial.getString("Tarifa"), entrada, tiempo ));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -240,4 +269,5 @@ public class MainActivityVendedor extends AppCompatActivity {
         });
         queue.add(solicitud);
     }
+
 }

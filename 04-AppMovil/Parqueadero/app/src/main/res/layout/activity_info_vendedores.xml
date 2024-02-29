@@ -56,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:enabled="false"
             android:textSize="25sp" />
         <TextView
             android:layout_width="match_parent"
@@ -67,6 +68,7 @@
             />
         <EditText
             android:id="@+id/campoApellido"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -81,6 +83,7 @@
             />
         <EditText
             android:id="@+id/campoTelefono"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -95,6 +98,7 @@
             />
         <EditText
             android:id="@+id/campoEmail"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

@@ -1,14 +1,17 @@
 package com.example.parqueadero.vendedor;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.parqueadero.MainActivity;
 import com.example.parqueadero.R;
 import com.example.parqueadero.administrador.CrearParqueadero;
+import com.example.parqueadero.administrador.MainActivityAdmin;
 import com.example.parqueadero.utils.Config;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,10 +38,13 @@ public class Entrada extends AppCompatActivity {
     Spinner spinnerTarifa;
     SharedPreferences sharedPreferences;
     String id_asignacion;
+    String opcionSeleccionada;
     EditText campo_placa;
     EditText campo_titular;
-    String idTarifa;
-
+    String id_tarifa;
+    String placa;
+    String titular;
+    Button btnCrearEntrada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,10 @@ public class Entrada extends AppCompatActivity {
         ImageView btnHistorial = findViewById(R.id.btnHistorialV);
         ImageView btnTarifa = findViewById(R.id.btnTarifasV);
         ImageView btnSalir = findViewById(R.id.btn_salirV);
+        btnCrearEntrada = findViewById(R.id.btnCrearEntrada);
+
+        campo_placa = findViewById(R.id.campo_placa_E);
+        campo_titular = findViewById(R.id.campo_titular_E);
 
         dataConfig = new Config(getApplicationContext());
         spinnerTarifa = findViewById(R.id.spinnerTarifaEntrada);
@@ -60,11 +71,8 @@ public class Entrada extends AppCompatActivity {
 
         String[] opciones = getResources().getStringArray(R.array.opciones_tarifa);
 
-        // Crear un adaptador para el spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
-        // Especificar el diseño del dropdown
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Configurar el adaptador en el spinner
         spinnerTarifa.setAdapter(adapter);
         btnParqueaderoV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,38 +105,19 @@ public class Entrada extends AppCompatActivity {
                 startActivity(intencion);
             }
         });
+
+        btnCrearEntrada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validarDatos();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        apiObtenerTarifa();
         clickEnSpinner();
-    }
-
-    public void apiObtenerTarifa(){
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-tarifas/Obtener.php");
-        StringRequest solicitud = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject respuesta = new JSONObject(response);
-                    System.out.println("Respuesta api Tarifa " + respuesta);
-                } catch (JSONException e) {
-                    System.out.println("El servidor GET responde con error");
-                    System.out.println(e.getMessage());
-                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("JOA Mani el servidor GET responde con un error");
-                System.out.println(error.getMessage());
-            }
-        });
-        queue.add(solicitud);
     }
 
     public void  clickEnSpinner(){
@@ -136,9 +125,8 @@ public class Entrada extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                String opcionSeleccionada = (String) parentView.getItemAtPosition(position);
+                opcionSeleccionada = (String) parentView.getItemAtPosition(position);
                 System.out.println("opcion elejida: " + opcionSeleccionada);
-                idTarifa(opcionSeleccionada);
             }
 
             @Override
@@ -148,21 +136,33 @@ public class Entrada extends AppCompatActivity {
         });
     }
 
-    public void idTarifa(String opcionSeleccionada) {
-        String opc = opcionSeleccionada;
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-tarifas/ObtenerIdTarifa.php");
+    public void validarDatos(){
+        placa = String.valueOf(campo_placa.getText());
+        titular = String.valueOf(campo_titular.getText());
 
-        // Crear una solicitud POST
+        if (placa.isEmpty() || titular.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Digita los campos por favor", Toast.LENGTH_LONG).show();
+        } else {
+            verificarPlaca();
+        }
+    }
+
+    public void verificarPlaca(){
+        System.out.println("Entro a VERIFICAR PLACA");
+        System.out.println();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-tarifas/VerificarPlaca.php");
         StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
-                    String mensaje = respuesta.getString("message");
-                    idTarifa = respuesta.getString("id_tarifa");
-                    System.out.println(mensaje);
-                    System.out.println(idTarifa);
+                    boolean status = respuesta.getBoolean("status");
+                    if (status){
+                        obtenerTarifa();
+                    }else{
+                        apiInsertarRegistro();
+                    }
                 } catch (JSONException e) {
                     System.out.println("El servidor POST responde con error");
                     System.out.println(e.getMessage());
@@ -172,69 +172,171 @@ public class Entrada extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("El servidor POST responde con un error");
+                System.out.println("JOA Mani el servidor POST responde con un error");
                 System.out.println(error.getMessage());
             }
         }) {
-            // Sobrescribir este método para pasar los parámetros en el cuerpo de la solicitud
-            @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("tipo_vehiculo", opc);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("placa", placa);
                 return params;
             }
         };
-
-        // Agregar la solicitud a la cola de solicitudes
         queue.add(solicitud);
     }
 
-
-    public void crearEntrada(View vista) {
-        System.out.println("si entro ");
-        campo_placa = findViewById(R.id.campo_placa);
-
-
-        String placa = campo_placa.getText().toString();
-        String tarifa = idTarifa.toString();
-        String asignacion = id_asignacion.toString();
-
-        System.out.println(placa);
-        System.out.println(tarifa);
-        System.out.println(asignacion);
-
-
+    public void apiInsertarRegistro(){
+        System.out.println("Entro a INSERTAR REGISTRO");
+        System.out.println();
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-Ticket/insertTicket.php");
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject resultado = new JSONObject(response);
-                            Toast.makeText(Entrada.this, "Ticket creado exitosamente", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
+        String url = dataConfig.getEndPoint("/API-Ticket/insertRegistro.php");
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject respuesta = new JSONObject(response);
+                    boolean status = respuesta.getBoolean("status");
+                    if (status){
+                        obtenerTarifa();
+                    }else{
+                        mostrarAlertaError();
                     }
-                }, new Response.ErrorListener() {
+                } catch (JSONException e) {
+                    System.out.println("El servidor POST responde con error");
+                    System.out.println(e.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Error: " + error.getMessage());
-                Toast.makeText(Entrada.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                System.out.println("JOA Mani el servidor POST responde con un error");
+                System.out.println(error.getMessage());
             }
         }) {
-            @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("placa", placa);
-                params.put("id_asignacion", asignacion);
-                params.put("id_tarifa", tarifa);
+                params.put("responsable", titular);
                 return params;
             }
         };
-        queue.add(stringRequest);
+        queue.add(solicitud);
+    }
+
+    public void obtenerTarifa(){
+        System.out.println("Entro a OBTENER TARIFA");
+        System.out.println();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-tarifas/ObtenerIdTarifa.php");
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject respuesta = new JSONObject(response);
+                    System.out.println("Api respuesta Tarifa: "+respuesta);
+                    boolean status = respuesta.getBoolean("success");
+                    if (status){
+                        id_tarifa = respuesta.getString("id_tarifa");
+                        insertarTicket();
+                    }else{
+                        mostrarAlertaError();
+                    }
+                } catch (JSONException e) {
+                    System.out.println("El servidor POST responde con error");
+                    System.out.println(e.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("JOA Mani el servidor POST responde con un error");
+                System.out.println(error.getMessage());
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tipo_vehiculo", opcionSeleccionada);
+                return params;
+            }
+        };
+        queue.add(solicitud);
+    }
+
+    public void insertarTicket(){
+        System.out.println("Entro a INSERTAR TICKET");
+        System.out.println();
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = dataConfig.getEndPoint("/API-Ticket/insertTicket.php");
+        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject respuesta = new JSONObject(response);
+                    System.out.println("respuesta Insertar TICKET: "+respuesta);
+                    boolean status = respuesta.getBoolean("status");
+                    if (status){
+                        mostrarAlerta();
+                    }else{
+                        mostrarAlertaError();
+                    }
+                } catch (JSONException e) {
+                    System.out.println("El servidor POST responde con error");
+                    System.out.println(e.getMessage());
+                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("JOA Mani el servidor POST responde con un error");
+                System.out.println(error.getMessage());
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("placa", placa);
+                params.put("id_asignacion", id_asignacion);
+                params.put("id_tarifa", id_tarifa);
+                return params;
+            }
+        };
+        queue.add(solicitud);
+    }
+
+    private void mostrarAlerta() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("EXITO");
+        builder.setMessage("Registro exitoso");
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intencion = new Intent(getApplicationContext(), MainActivityVendedor.class);
+                startActivity(intencion);
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alerta = builder.create();
+        alerta.show();
+    }
+
+    private void mostrarAlertaError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("ERROR");
+        builder.setMessage("No se pudo hacer el ingreso");
+
+        builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alerta = builder.create();
+        alerta.show();
     }
 
 

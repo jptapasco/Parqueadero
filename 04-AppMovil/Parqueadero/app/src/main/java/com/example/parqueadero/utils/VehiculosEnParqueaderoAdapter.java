@@ -2,6 +2,7 @@ package com.example.parqueadero.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.MainActivityAdmin;
+import com.example.parqueadero.vendedor.MainActivityVendedor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,6 +132,7 @@ public class VehiculosEnParqueaderoAdapter extends RecyclerView.Adapter<Vehiculo
                     .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
+                            apiDarSalida(detalleHistorial, String.valueOf(tarifaTotal));
                         }
                     })
                     .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -140,16 +144,22 @@ public class VehiculosEnParqueaderoAdapter extends RecyclerView.Adapter<Vehiculo
             alertDialog.show();
         }
 
-        public void apiDarSalida(){
+        public void apiDarSalida(DetalleHistorial detalleHistorial,String precio){
             dataConfig = new Config(contexto);
             RequestQueue queue = Volley.newRequestQueue(contexto);
-            String url = dataConfig.getEndPoint("/API-voce/obtenerParqueadero.php");
+            String url = dataConfig.getEndPoint("/API-tarifas/actualizarPrecioTicket.php");
             StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try {
                         JSONObject respuesta = new JSONObject(response);
-                        System.out.println("Respuesta api Vehiculos EN: " + respuesta);
+                        System.out.println("Respuesta api Salida: " + respuesta);
+                        boolean status = respuesta.getBoolean("status");
+                        if (status){
+                            mostrarAlertaOk();
+                        }else{
+                            mostrarAlertaError();
+                        }
                     } catch (JSONException e) {
                         System.out.println("El servidor POST responde con error");
                         System.out.println(e.getMessage());
@@ -165,11 +175,47 @@ public class VehiculosEnParqueaderoAdapter extends RecyclerView.Adapter<Vehiculo
             }) {
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("id_asignacion",);
+                    params.put("placa",detalleHistorial.placa);
+                    params.put("precio",precio);
                     return params;
                 }
             };
             queue.add(solicitud);
+        }
+
+
+        private void mostrarAlertaOk() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
+            builder.setTitle("EXITO");
+            builder.setMessage("Salida Exitosa");
+
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intencion = new Intent(contexto, MainActivityVendedor.class);
+                    contexto.startActivity(intencion);
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alerta = builder.create();
+            alerta.show();
+        }
+
+        private void mostrarAlertaError() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
+            builder.setTitle("ERROR");
+            builder.setMessage("No se puedo dar salida");
+
+            builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alerta = builder.create();
+            alerta.show();
         }
 
     }

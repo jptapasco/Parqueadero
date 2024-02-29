@@ -3,7 +3,6 @@ package com.example.parqueadero.vendedor;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,11 +25,9 @@ import com.example.parqueadero.utils.DetalleHistorial;
 import com.example.parqueadero.utils.DetalleHistorialAdapter;
 import com.example.parqueadero.utils.Tarifa;
 import com.example.parqueadero.utils.TarifaAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +50,8 @@ public class Tarifas extends AppCompatActivity {
         campoEditTarifa = findViewById(R.id.campoEditTarifa);
         String[] opciones = getResources().getStringArray(R.array.opciones_tarifa);
 
-        // Crear un adaptador para el spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
-        // Especificar el diseño del dropdown
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Configurar el adaptador en el spinner
         spinnerTarifa.setAdapter(adapter);
 
         ImageView btnParqueaderoV = findViewById(R.id.btnParqueaderoV);

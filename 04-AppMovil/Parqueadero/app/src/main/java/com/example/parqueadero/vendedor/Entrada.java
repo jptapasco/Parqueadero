@@ -208,6 +208,7 @@ public class Entrada extends AppCompatActivity {
                     System.out.println(salidaa);
                     String rpt = respuesta.getString("message");
                     System.out.println(rpt);
+
                     if (status && salidaa != "null") {
                         // Si el status es verdadero, continuar con la creación del ticket
                         // Crear solicitud para insertar el ticket

@@ -9,11 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['placa'])) {
     $placa = $_POST['placa'];
 
     try {
-        $consulta = $base_de_datos->prepare("SELECT ticket.*, registro_vehiculos.responsable, tarifas.tipo_vehiculo
-            FROM ticket
-            LEFT JOIN registro_vehiculos ON ticket.placa = registro_vehiculos.placa
-            LEFT JOIN tarifas ON ticket.id_tarifa = tarifas.id
-            WHERE ticket.placa = :placa AND ticket.salida IS NOT NULL");
+        $consulta = $base_de_datos->prepare("SELECT * FROM ticket WHERE ticket.placa = :placa AND ticket.salida IS NULL");
         $consulta->bindParam(':placa', $placa);
         $proceso = $consulta->execute();
 
@@ -22,14 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['placa'])) {
             if ($datosTicket) {
                 $respuesta = [
                     'status' => true,
-                    'message' => "La placa ya existe en la tabla de tickets y ya salio",
-                    'responsable' => $datosTicket['responsable'],
-                    'tipo_vehiculo' => $datosTicket['tipo_vehiculo']
+                    'message' => "El vehiculo esta en el parqueadero y NO ha salio",
                 ];
             } else {
                 $respuesta = [
                     'status' => false,
-                    'message' => "La placa si esta en parqueadero y no ha salido"
+                    'message' => "La placa no esta en parqueadero y no ha ingresado"
                 ];
             }
         } else {

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.InfoVendedores;
 import com.example.parqueadero.vendedor.Imprimir;
 
 import java.util.List;
@@ -76,6 +77,7 @@ public class DetalleHistorialAdapter extends RecyclerView.Adapter<DetalleHistori
             btnImprimir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     System.out.println("Btn imprimir");
                     SharedPreferences sharedPreferences = contexto.getSharedPreferences("infoHistorial",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -83,6 +85,7 @@ public class DetalleHistorialAdapter extends RecyclerView.Adapter<DetalleHistori
                     editor.putString("placa", detalleHistorial.placa);
                     editor.putString("vehiculo", detalleHistorial.tipoVehiculo);
                     editor.putString("tarifa", detalleHistorial.tarifa);
+                    editor.putString("tiempo", detalleHistorial.tiempo);
                     editor.putString("entrada", detalleHistorial.entrada);
                     editor.putString("salida", detalleHistorial.salida);
                     editor.putString("titular", detalleHistorial.responsable);

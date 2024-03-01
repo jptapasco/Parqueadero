@@ -102,7 +102,7 @@
             android:textColor="#FFFFFF"
             android:textSize="25sp" />
 
-        <!-- Agrega un espacio entre los botones -->
+
         <Space
             android:layout_width="16dp"
             android:layout_height="match_parent" />

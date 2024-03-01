@@ -23,6 +23,7 @@ public class Imprimir extends AppCompatActivity {
     TextView campoPlaca ;
     TextView campoVehiculo ;
     TextView campoTarifa ;
+    TextView campoTiempo ;
     TextView campoEntrada ;
     TextView campoSalida ;
     TextView campoTitular ;
@@ -49,23 +50,51 @@ public class Imprimir extends AppCompatActivity {
         campoPlaca = findViewById(R.id.etq_Placa);
         campoVehiculo = findViewById(R.id.etq_Vehiculo);
         campoTarifa = findViewById(R.id.etq_Tarifa);
+<<<<<<< HEAD
         campoEntrada = findViewById(R.id.etq_Entrada);
         campoSalida = findViewById(R.id.etq_Salida);
         campoTitular = findViewById(R.id.etq_Titular);
     }
+=======
+        campoTiempo = findViewById(R.id.etq_Tiempo);
+        campoEntrada = findViewById(R.id.etq_Entrada);
+        campoSalida = findViewById(R.id.etq_Salida);
+        campoTitular = findViewById(R.id.etq_Titular);
+
+
+    }
+
+>>>>>>> dev10
     @Override
     protected void onResume() {
         super.onResume();
         cargarInfo();
     }
+<<<<<<< HEAD
     public void cargarInfo(){
+=======
+
+    public void cargarInfo(){
+
+>>>>>>> dev10
         campoTicket.setText(sharedPreferences.getString("ticket",""));
         campoPlaca.setText(sharedPreferences.getString("placa",""));
         campoVehiculo.setText(sharedPreferences.getString("vehiculo",""));
         campoTarifa.setText(sharedPreferences.getString("tarifa",""));
+<<<<<<< HEAD
         campoEntrada.setText(sharedPreferences.getString("entrada",""));
         campoSalida.setText(sharedPreferences.getString("salida",""));
         campoTitular.setText(sharedPreferences.getString("titular",""));
     }
 
+=======
+        campoTiempo.setText(sharedPreferences.getString("tiempo",""));
+        campoEntrada.setText(sharedPreferences.getString("entrada",""));
+        campoSalida.setText(sharedPreferences.getString("salida",""));
+        campoTitular.setText(sharedPreferences.getString("titular",""));
+
+    }
+
+
+>>>>>>> dev10
 }

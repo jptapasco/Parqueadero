@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,6 +15,23 @@
         android:layout_height="70dp"
         android:src="@drawable/tractor"
         android:layout_gravity="center" />
+=======
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".vendedor.Imprimir"
+        android:padding="20dp"
+        android:gravity="">
+
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/tractor"
+            android:layout_gravity="center" />
+>>>>>>> dev10
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -103,6 +121,26 @@
         </LinearLayout>
     </LinearLayout>
 
+<<<<<<< HEAD
+=======
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="TIEMPO:"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/etq_Tiempo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="XXXXXXXXXXXXX"
+        android:textSize="20sp" />
+
+>>>>>>> dev10
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,6 +190,7 @@
         android:textSize="20sp" />
 
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/btn_salirImprimir"
         android:layout_width="206dp"
@@ -171,3 +210,24 @@
 
 
 </LinearLayout>
+=======
+            <Button
+                android:id="@+id/btn_salirImprimir"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/green"
+                android:textStyle="bold"
+                android:text="OK"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:layout_marginTop="35dp"/>
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+
+
+
+    </LinearLayout>
+>>>>>>> dev10

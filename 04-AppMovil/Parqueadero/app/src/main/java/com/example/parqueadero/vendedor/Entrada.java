@@ -187,160 +187,174 @@ public class Entrada extends AppCompatActivity {
         queue.add(solicitud);
     }
 
-    public void apiInsertarRegistro(){
-        System.out.println("Entro a INSERTAR REGISTRO");
-        System.out.println();
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-Ticket/insertRegistro.php");
-        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+    public void crearEntrada(View vista) {
+        // Obtener los valores de los campos
+        campo_placa = findViewById(R.id.campo_placa);
+        campo_titular = findViewById(R.id.campo_titular);
+        String placa = campo_placa.getText().toString();
+        String titular = campo_titular.getText().toString();
+
+        // Crear una solicitud POST para verificar la placa
+        String urlVerificarPlaca = dataConfig.getEndPoint("/API-tarifas/VerificarPlaca.php");
+        StringRequest solicitudVerificarPlaca = new StringRequest(Request.Method.POST, urlVerificarPlaca, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
                     boolean status = respuesta.getBoolean("status");
-                    if (status){
-                        obtenerTarifa();
-                    }else{
-                        mostrarAlertaError();
+                    String salidaa = respuesta.getString("salida");
+                    System.out.println(salidaa);
+                    String rpt = respuesta.getString("message");
+                    System.out.println(rpt);
+
+                    if (status && salidaa != "null") {
+                        // Si el status es verdadero, continuar con la creación del ticket
+                        // Crear solicitud para insertar el ticket
+                        String urlInsertarTicket = dataConfig.getEndPoint("/API-Ticket/insertTicket.php");
+                        StringRequest solicitudInsertarTicket = new StringRequest(Request.Method.POST, urlInsertarTicket, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject resultado = new JSONObject(response);
+                                    Toast.makeText(Entrada.this, resultado.getString("message"), Toast.LENGTH_SHORT).show();
+                                    // Aquí puedes realizar cualquier otra acción después de crear el ticket
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("Error al conectar con la API para insertar el ticket");
+                                Toast.makeText(Entrada.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("placa", placa);
+                                params.put("id_asignacion", id_asignacion);
+                                params.put("id_tarifa", idTarifa);
+                                return params;
+                            }
+                        };
+                        // Agregar la solicitud a la cola de solicitudes
+                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                        queue.add(solicitudInsertarTicket);
+                        campo_placa.setText("");
+                        campo_titular.setText("");
+                    } else if(status && salidaa == "null"){
+
+                            // Crear una solicitud POST para verificar la placa
+
+                        Toast.makeText(Entrada.this, "EL VEHICULO SE ENCUENTRA EN EL PARUQEADERO", Toast.LENGTH_SHORT).show();
+
+                    }else if(!status){
+
+                            // Si el status es falso, crear el registro del vehículo
+                            // Crear una solicitud POST para insertar el registro del vehículo
+                            String urlInsertarRegistro = dataConfig.getEndPoint("/API-Ticket/insertRegistro.php");
+                            StringRequest solicitudInsertarRegistro = new StringRequest(Request.Method.POST, urlInsertarRegistro, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject respuesta = new JSONObject(response);
+                                        boolean status = respuesta.getBoolean("status");
+                                        if (status) {
+                                            // Si el status es verdadero, continuar con la creación del ticket
+                                            // Crear solicitud para insertar el ticket
+                                            String urlInsertarTicket = dataConfig.getEndPoint("/API-Ticket/insertTicket.php");
+                                            StringRequest solicitudInsertarTicket = new StringRequest(Request.Method.POST, urlInsertarTicket, new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+                                                    try {
+                                                        JSONObject resultado = new JSONObject(response);
+                                                        Toast.makeText(Entrada.this, resultado.getString("message"), Toast.LENGTH_SHORT).show();
+                                                        // Aquí puedes realizar cualquier otra acción después de crear el ticket
+                                                    } catch (JSONException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    System.out.println("Error al conectar con la API para insertar el ticket");
+                                                    Toast.makeText(Entrada.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }) {
+                                                @Override
+                                                protected Map<String, String> getParams() {
+                                                    Map<String, String> params = new HashMap<>();
+                                                    params.put("placa", placa);
+                                                    params.put("id_asignacion", id_asignacion);
+                                                    params.put("id_tarifa", idTarifa);
+                                                    return params;
+                                                }
+                                            };
+                                            // Agregar la solicitud a la cola de solicitudes
+                                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                                            queue.add(solicitudInsertarTicket);
+                                            campo_placa.setText("");
+                                            campo_titular.setText("");
+                                        } else {
+                                            // Error al insertar el registro del vehículo
+                                            // Aquí puedes manejar el error según sea necesario
+                                            Toast.makeText(Entrada.this, respuesta.getString("message"), Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        System.out.println("Error al analizar la respuesta JSON de la API insertarRegistro");
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    System.out.println("Error al conectar con la API insertarRegistro");
+                                    error.printStackTrace();
+                                    Toast.makeText(Entrada.this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show();
+                                }
+                            }) {
+                                @Override
+                                protected Map<String, String> getParams() {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("placa", placa);
+                                    params.put("responsable", titular);
+                                    return params;
+                                }
+                            };
+
+                            // Agregar la solicitud a la cola de solicitudes
+                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                            queue.add(solicitudInsertarRegistro);
+
+
                     }
                 } catch (JSONException e) {
-                    System.out.println("El servidor POST responde con error");
-                    System.out.println(e.getMessage());
-                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    System.out.println("Error al analizar la respuesta JSON de la API verificarPlaca");
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("JOA Mani el servidor POST responde con un error");
-                System.out.println(error.getMessage());
+                System.out.println("Error al conectar con la API verificarPlaca");
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Error en la conexión con el servidor", Toast.LENGTH_SHORT).show();
             }
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("placa", placa);
-                params.put("responsable", titular);
                 return params;
             }
         };
-        queue.add(solicitud);
-    }
 
-    public void obtenerTarifa(){
-        System.out.println("Entro a OBTENER TARIFA");
-        System.out.println();
+        // Agregar la solicitud a la cola de solicitudes
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-tarifas/ObtenerIdTarifa.php");
-        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject respuesta = new JSONObject(response);
-                    System.out.println("LO QUE ME LLEGO PARA TARIFAS ID: "+respuesta);
-                    boolean status = respuesta.getBoolean("success");
-                    if (status){
-                        id_tarifa = respuesta.getString("id_tarifa");
-                        insertarTicket();
-                    }else{
-                        mostrarAlertaError();
-                    }
-                } catch (JSONException e) {
-                    System.out.println("El servidor POST responde con error");
-                    System.out.println(e.getMessage());
-                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("JOA Mani el servidor POST responde con un error");
-                System.out.println(error.getMessage());
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("tipo_vehiculo", opcionSeleccionada);
-                return params;
-            }
-        };
-        queue.add(solicitud);
+        queue.add(solicitudVerificarPlaca);
     }
-
-    public void insertarTicket(){
-        System.out.println("Entro a INSERTAR TICKET");
-        System.out.println();
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-Ticket/insertTicket.php");
-        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject respuesta = new JSONObject(response);
-                    System.out.println("respuesta Insertar TICKET: "+respuesta);
-                    boolean status = respuesta.getBoolean("status");
-                    if (status){
-                        mostrarAlerta();
-                    }else{
-                        mostrarAlertaError();
-                    }
-                } catch (JSONException e) {
-                    System.out.println("El servidor POST responde con error");
-                    System.out.println(e.getMessage());
-                    Toast.makeText(getApplicationContext(), "Error en datos del servidor: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("JOA Mani el servidor POST responde con un error");
-                System.out.println(error.getMessage());
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("placa", placa);
-                params.put("id_asignacion", id_asignacion);
-                params.put("id_tarifa", id_tarifa);
-                return params;
-            }
-        };
-        queue.add(solicitud);
-    }
-
-    private void mostrarAlerta() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("EXITO");
-        builder.setMessage("Registro exitoso");
-
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intencion = new Intent(getApplicationContext(), MainActivityVendedor.class);
-                startActivity(intencion);
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alerta = builder.create();
-        alerta.show();
-    }
-
-    private void mostrarAlertaError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("ERROR");
-        builder.setMessage("No se pudo hacer el ingreso");
-
-        builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alerta = builder.create();
-        alerta.show();
-    }
-
 
 
 }

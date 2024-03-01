@@ -29,4 +29,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_asignacion'])) {
 }
 
 echo json_encode($respuesta);
-?>

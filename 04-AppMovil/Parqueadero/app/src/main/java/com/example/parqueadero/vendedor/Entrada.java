@@ -204,7 +204,11 @@ public class Entrada extends AppCompatActivity {
                 try {
                     JSONObject respuesta = new JSONObject(response);
                     boolean status = respuesta.getBoolean("status");
-                    if (status) {
+                    String salidaa = respuesta.getString("salida");
+                    System.out.println(salidaa);
+                    String rpt = respuesta.getString("message");
+                    System.out.println(rpt);
+                    if (status && salidaa != "null") {
                         // Si el status es verdadero, continuar con la creación del ticket
                         // Crear solicitud para insertar el ticket
                         String urlInsertarTicket = dataConfig.getEndPoint("/API-Ticket/insertTicket.php");
@@ -240,48 +244,13 @@ public class Entrada extends AppCompatActivity {
                         queue.add(solicitudInsertarTicket);
                         campo_placa.setText("");
                         campo_titular.setText("");
-                    } else if(status){
+                    } else if(status && salidaa == "null"){
 
                             // Crear una solicitud POST para verificar la placa
-                            String urlVerificarPlaca = dataConfig.getEndPoint("/API-tarifas/VerificarEntrada.php");
-                            StringRequest solicitudVerificarPlaca = new StringRequest(Request.Method.POST, urlVerificarPlaca, new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try {
-                                        JSONObject respuesta = new JSONObject(response);
-                                        boolean status = respuesta.getBoolean("status");
-                                        if (status) {
 
-                                            Toast.makeText(Entrada.this, respuesta.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Entrada.this, "EL VEHICULO SE ENCUENTRA EN EL PARUQEADERO", Toast.LENGTH_SHORT).show();
 
-                                        }
-                                    } catch (JSONException e) {
-                                        System.out.println("Error al analizar la respuesta JSON de la API verificarplaca");
-                                        e.printStackTrace();
-                                        Toast.makeText(getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    System.out.println("Error al conectar con la API verificarplaca");
-                                    error.printStackTrace();
-                                    Toast.makeText(getApplicationContext(), "Error en la conexión con el servidor", Toast.LENGTH_SHORT).show();
-                                }
-                            }) {
-                                @Override
-                                protected Map<String, String> getParams() {
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("placa", placa);
-                                    return params;
-                                }
-                            };
-
-                            // Agregar la solicitud a la cola de solicitudes
-                            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                            queue.add(solicitudVerificarPlaca);
-
-                        }else if(!status){
+                    }else if(!status){
 
                             // Si el status es falso, crear el registro del vehículo
                             // Crear una solicitud POST para insertar el registro del vehículo
@@ -363,7 +332,7 @@ public class Entrada extends AppCompatActivity {
 
                     }
                 } catch (JSONException e) {
-                    System.out.println("Error al analizar la respuesta JSON de la API verificarplaca");
+                    System.out.println("Error al analizar la respuesta JSON de la API verificarPlaca");
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show();
                 }
@@ -371,7 +340,7 @@ public class Entrada extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("Error al conectar con la API verificarplaca");
+                System.out.println("Error al conectar con la API verificarPlaca");
                 error.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Error en la conexión con el servidor", Toast.LENGTH_SHORT).show();
             }

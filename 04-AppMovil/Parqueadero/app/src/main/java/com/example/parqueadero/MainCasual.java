@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -232,13 +233,15 @@ public class MainCasual extends AppCompatActivity {
     }
 
     public void obtenerParking() {
+        System.out.println("entro OBTENER PK");
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/API-Ticket/obtenerParqueadero.php");
+        String url = dataConfig.getEndPoint("/obtenerPk.php");
         StringRequest consulta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject resultado = new JSONObject(response);
+                    System.out.println("Respuesta: "+resultado);
                     JSONArray parqueadero = resultado.getJSONArray("parqueaderos");
                     System.out.println("Datos PK: "+resultado);
                     for (int i = 0; i < parqueadero.length(); i++) {
@@ -262,7 +265,7 @@ public class MainCasual extends AppCompatActivity {
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id_usuario", idUsuario);
+                params.put("id_parqueadero", idUsuario);
                 return params;
             }
         };

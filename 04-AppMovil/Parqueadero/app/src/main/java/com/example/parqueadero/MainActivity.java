@@ -1,6 +1,7 @@
 package com.example.parqueadero;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void apiValidarUsuario(String correo, String password) {
+        System.out.println("Api validar Usuario");
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-login/acceso.php");
 
@@ -78,22 +81,28 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject datos = new JSONObject(response);
                     System.out.println(datos);
                     if (datos.getBoolean("success")) {
-                        System.out.println("entro");
-                        JSONObject usuario = datos.getJSONObject("user");
-                        String status = usuario.getString("estado");
-                        rol = usuario.getString("tipo");
-                        System.out.println(status);
-                        if (status.equalsIgnoreCase("INACTIVO")) {
-                            System.out.println("Usuario Inactivo");
-                            Toast.makeText(getApplicationContext(), "Usuario INACTIVO", Toast.LENGTH_LONG).show();
-                        } else if (rol.equalsIgnoreCase("VENDEDOR")) {
-                            String id_usuario = usuario.getString("id");
-                            obtenerParking(id_usuario);
-                            obtenerAsignacion(id_usuario);
-                        } else if (rol.equalsIgnoreCase("ADMIN")) {
-                            cambiarActivity(rol);
+                        System.out.println("Inicio de sesión exitoso");
+                        if (datos.get("user") instanceof JSONObject) {
+                            System.out.println("entro");
+                            JSONObject usuario = datos.getJSONObject("user");
+                            System.out.println("usuario: "+usuario);
+                            String status = usuario.getString("estado");
+                            rol = usuario.getString("tipo");
+                            System.out.println(status);
+                            if (status.equalsIgnoreCase("INACTIVO")) {
+                                System.out.println("Usuario Inactivo");
+                                Toast.makeText(getApplicationContext(), "Usuario INACTIVO", Toast.LENGTH_LONG).show();
+                            } else if (rol.equalsIgnoreCase("VENDEDOR")) {
+                                String id_usuario = usuario.getString("id");
+                                obtenerParking(id_usuario);
+                                obtenerAsignacion(id_usuario);
+                            } else if (rol.equalsIgnoreCase("ADMIN")) {
+                                cambiarActivity(rol);
+                            }
+                        } else {
+                            System.out.println("Usuario no encontrado");
+                            mostrarAlertaError();
                         }
-
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -117,7 +126,25 @@ public class MainActivity extends AppCompatActivity {
         queue.add(solicitud);
     }
 
+    private void mostrarAlertaError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("ERROR");
+        builder.setMessage("Correo o contraseña incorrectas");
+
+        builder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alerta = builder.create();
+        alerta.show();
+    }
+
+
     public void obtenerParking(String id_usuario) {
+        System.out.println("API OBTENER PK");
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = dataConfig.getEndPoint("/API-Ticket/obtenerParqueadero.php");
         StringRequest consulta = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

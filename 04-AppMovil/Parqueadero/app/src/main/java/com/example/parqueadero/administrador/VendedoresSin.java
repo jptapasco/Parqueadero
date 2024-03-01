@@ -129,15 +129,7 @@ public class VendedoresSin extends AppCompatActivity {
                 try {
                     JSONObject respuesta = new JSONObject(response);
                     JSONArray datos = respuesta.getJSONArray("registros");
-                    for (int i = 0; i < datos.length(); i++) {
-                        try {
-                            JSONObject vendedor = datos.getJSONObject(i);
-                            String id_persona = vendedor.getString("id");
-                            verificarTipo(id_persona,datos);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+                    cargarListaPersonasSinAsignacion(datos);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -151,45 +143,6 @@ public class VendedoresSin extends AppCompatActivity {
         });
         queue.add(solicitud);
     }
-
-    public void verificarTipo(String id_persona, JSONArray datosJ){
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = dataConfig.getEndPoint("/verificarTipo.php");
-        StringRequest solicitud = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject datos = new JSONObject(response);
-                    JSONObject resultado = datos.getJSONObject("resultado");
-                    String tipo = resultado.getString("tipo");
-                    System.out.println("respuesta api Verificar: "+datos);
-                    System.out.println("TIPO USUARIO: "+tipo);
-                    String v = "VENDEDOR";
-                    if (tipo.equalsIgnoreCase(v)) {
-                        cargarListaPersonasSinAsignacion(datosJ);
-                    } else {
-                        System.out.println("Es ADMIN");
-                    }
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Joa mani el servidor POST responde con un error:");
-                System.out.println(error.getMessage());
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id_persona",id_persona);
-                return params;
-            }
-        };
-        queue.add(solicitud);
-    }
-
 
     public void cargarListaPersonasSinAsignacion(JSONArray datos) {
         List<Persona> listaPersonaSinAsignacion = new ArrayList<>();

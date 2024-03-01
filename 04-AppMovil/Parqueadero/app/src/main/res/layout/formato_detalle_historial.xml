@@ -129,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:clickable="true"
+                android:layout_marginTop="10dp"
                 android:background="@color/green"
                 android:text="IMPRIMIR"
                 />

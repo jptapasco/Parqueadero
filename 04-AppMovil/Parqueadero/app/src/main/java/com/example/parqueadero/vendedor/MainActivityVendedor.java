@@ -144,6 +144,7 @@ public class MainActivityVendedor extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intencion = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intencion);
+                finishAffinity();
             }
         });
     }

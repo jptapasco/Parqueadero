@@ -27,10 +27,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class MainCasual extends AppCompatActivity {
 
@@ -57,6 +60,7 @@ public class MainCasual extends AppCompatActivity {
     String nombre;
     String direccion;
     String telefono;
+    String tiempo;
     String placaBusqueda;
 
 
@@ -122,6 +126,7 @@ public class MainCasual extends AppCompatActivity {
                         idAsignacion = resultado.getString("id_asignacion");
                         idTarifa = resultado.getString("id_tarifa");
                         createEntrada = resultado.getString("create_entrada");
+                        tiempo = calcularTiempo(createEntrada);
                         obtenerTarifa();
                     }else {
                         mostrarAlertaError();
@@ -264,15 +269,63 @@ public class MainCasual extends AppCompatActivity {
         queue.add(consulta);
     }
 
+    private String calcularTiempo(String ingreso) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // Establecer la zona horaria a America/Bogota
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Bogota"));
+
+        try {
+            Date fechaIngreso = format.parse(ingreso);
+            Date fechaActual = new Date();
+            System.out.println("fecha Ingreso: " + fechaIngreso);
+            System.out.println("fecha actual: "+fechaActual);
+            long diferencia = fechaActual.getTime() - fechaIngreso.getTime();
+            long horas = diferencia / (60 * 60 * 1000);
+            long minutos = (diferencia % (60 * 60 * 1000)) / (60 * 1000);
+            System.out.println(horas + "h " + minutos + "m");
+            return horas + "h " + minutos + "m";
+        } catch (Exception e) {
+            System.err.println("Error al calcular tiempo: " + e.getMessage());
+            return "";
+        }
+    }
+
     public void reemplazarDatos(){
+
+        String tarifa = valorTarifa;
+        String tiempoC = tiempo;
+        double tarifaDouble = Double.parseDouble(tarifa);
+
+        double tarifaPorHora = tarifaDouble;
+        String tiempoT = tiempoC;
+
+        int horas = 0;
+        int minutos = 0;
+
+        if (tiempoT.contains("h")) {
+            String[] partesTiempo = tiempoT.split("h");
+            horas = Integer.parseInt(partesTiempo[0].trim());
+
+            if (partesTiempo[1].contains("m")) {
+                minutos = Integer.parseInt(partesTiempo[1].replace("m", "").trim());
+            }
+        } else if (tiempoT.contains("m")) {
+            minutos = Integer.parseInt(tiempoT.replace("m", "").trim());
+        }
+
+        double tarifaTotal = (horas * tarifaPorHora) + ((minutos > 0) ? tarifaPorHora : 0);
+
+
         namePk.setText(nombre);
         etqDireccionIn.setText(direccion);
         etqtelefonoIn.setText(telefono);
         etqTicketIn.setText(ticket);
-        //etqEstanciaIn.setText();
+        etqEstanciaIn.setText(tiempo);
         etqPlacaIn.setText(placaBusqueda);
-        //etqTipoVehiculoIn.setText();
+        etqTipoVehiculoIn.setText(tipoVehiculo);
         etqIngresoIn.setText(createEntrada);
+        etqValorTarifaIn.setText(String.valueOf(tarifaTotal));
     }
 
 

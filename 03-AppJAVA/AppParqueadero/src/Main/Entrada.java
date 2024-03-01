@@ -178,7 +178,6 @@ public final class Entrada extends javax.swing.JPanel {
         
     }
     
-    //Botón para editar parqueadero
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {                                           
        
         placa = inputPlaca.getText();
@@ -195,7 +194,7 @@ public final class Entrada extends javax.swing.JPanel {
             System.out.println("RESPUESTA ASOCIACION: " + selected);
             
             JsonObject respuestaInsert = gson.fromJson(selected, JsonObject.class);
-
+            System.out.println("respuesta Verificar Placa: " + respuestaInsert);
             boolean status = respuestaInsert.get("status").getAsBoolean();
 
             if (status) {
@@ -213,10 +212,10 @@ public final class Entrada extends javax.swing.JPanel {
                 
                 String idTarifa = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-tarifas/ObtenerIdTarifa.php", id_tarifa);
                 
-                System.out.println("LO QUE ME LLEGO PARA TARIFAS ID: "+idTarifa);
                 // Analizar la respuesta JSON
                 JsonObject respuesta = gson.fromJson(idTarifa, JsonObject.class);
-
+                System.out.println("LO QUE ME LLEGO PARA TARIFAS ID: "+respuesta);
+                
                 // Verificar si la respuesta indica éxito
                 boolean success = respuesta.get("success").getAsBoolean();
 
@@ -230,11 +229,10 @@ public final class Entrada extends javax.swing.JPanel {
                     ticket.put("id_asignacion", id_asignacion);
                     ticket.put("id_tarifa", idTarifaObtenido);
                     
-                    String insertTicket = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-ticket/insertTicket.php", ticket);
-                    
-                    System.out.println("RESPUESTA DEL INSERT DEL TICKET: "+insertTicket);
+                    String insertTicket = consumo.consumoPOST("http://localhost/API-PRQDR-05/API-ticket/insertTicket.php", ticket);                                     
                     
                     JsonObject response = gson.fromJson(insertTicket, JsonObject.class);
+                    System.out.println("RESPUESTA DEL INSERT DEL TICKET: "+response);
 
                     boolean statusinsert = response.get("status").getAsBoolean();
 

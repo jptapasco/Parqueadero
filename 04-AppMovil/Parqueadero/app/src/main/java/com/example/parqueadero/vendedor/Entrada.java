@@ -157,6 +157,7 @@ public class Entrada extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
+                    System.out.println("respuesta Verificar Placa: "+respuesta);
                     boolean status = respuesta.getBoolean("status");
                     if (status){
                         obtenerTarifa();
@@ -234,7 +235,7 @@ public class Entrada extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject respuesta = new JSONObject(response);
-                    System.out.println("Api respuesta Tarifa: "+respuesta);
+                    System.out.println("LO QUE ME LLEGO PARA TARIFAS ID: "+respuesta);
                     boolean status = respuesta.getBoolean("success");
                     if (status){
                         id_tarifa = respuesta.getString("id_tarifa");

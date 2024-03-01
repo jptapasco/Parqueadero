@@ -75,6 +75,7 @@ public class DetalleHistorialAdapter extends RecyclerView.Adapter<DetalleHistori
                 @Override
                 public void onClick(View v) {
                     System.out.println("CLICK EN IMPRIMIR HISTORIAL");
+
                 }
             });
         }

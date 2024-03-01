@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -132,6 +133,7 @@ public class Historial extends AppCompatActivity {
 
     private String calcularTiempo(String ingreso, String salida) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Bogota"));
         try {
             Date fechaIngreso = format.parse(ingreso);
             Date fechaSalida = format.parse(salida);
@@ -146,11 +148,10 @@ public class Historial extends AppCompatActivity {
 
 
     public String obtenerFechaHoraActual() {
-        // Obtener una instancia de Calendar
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Bogota"));
 
-        // Obtener la fecha y hora actual en formato de 12 horas
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Bogota"));
         String fechaHoraActual = sdf.format(calendar.getTime());
 
         return fechaHoraActual;

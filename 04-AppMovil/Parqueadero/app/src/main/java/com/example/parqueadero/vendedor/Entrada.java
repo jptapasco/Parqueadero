@@ -240,9 +240,7 @@ public class Entrada extends AppCompatActivity {
                         queue.add(solicitudInsertarTicket);
                         campo_placa.setText("");
                         campo_titular.setText("");
-                    } else {
-
-                        if(status){
+                    } else if(status){
 
                             // Crear una solicitud POST para verificar la placa
                             String urlVerificarPlaca = dataConfig.getEndPoint("/API-tarifas/VerificarEntrada.php");
@@ -362,7 +360,7 @@ public class Entrada extends AppCompatActivity {
                             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                             queue.add(solicitudInsertarRegistro);
 
-                        }
+
                     }
                 } catch (JSONException e) {
                     System.out.println("Error al analizar la respuesta JSON de la API verificarplaca");

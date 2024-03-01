@@ -1,6 +1,8 @@
 package com.example.parqueadero.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.parqueadero.R;
+import com.example.parqueadero.administrador.InfoVendedores;
+import com.example.parqueadero.vendedor.Imprimir;
+
 import java.util.List;
 
 public class DetalleHistorialAdapter extends RecyclerView.Adapter<DetalleHistorialAdapter.ViewHolder> {
@@ -74,7 +79,23 @@ public class DetalleHistorialAdapter extends RecyclerView.Adapter<DetalleHistori
             btnImprimir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("CLICK EN IMPRIMIR HISTORIAL");
+
+                    System.out.println("Btn imprimir");
+                    SharedPreferences sharedPreferences = contexto.getSharedPreferences("infoHistorial",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("ticket", detalleHistorial.id);
+                    editor.putString("placa", detalleHistorial.placa);
+                    editor.putString("vehiculo", detalleHistorial.tipoVehiculo);
+                    editor.putString("tarifa", detalleHistorial.tarifa);
+                    editor.putString("tiempo", detalleHistorial.tiempo);
+                    editor.putString("entrada", detalleHistorial.entrada);
+                    editor.putString("salida", detalleHistorial.salida);
+                    editor.putString("titular", detalleHistorial.responsable);
+
+                    editor.apply();
+                    Intent intencion = new Intent(contexto, Imprimir.class);
+                    contexto.startActivity(intencion);
+
                 }
             });
         }
